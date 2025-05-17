@@ -45,6 +45,7 @@ namespace gymproject {
         DataGridView^ dgvCoach;
 
 		Panel^ topPanel;
+        Button^ logOut;
 		Panel^ bottomPanel;
 
 		Manager* manager;
@@ -96,12 +97,12 @@ namespace gymproject {
             tabAddRec = gcnew TabPage("Add Receptionist");
             Panel^ panel = gcnew Panel();
             panel->Dock = DockStyle::Fill;
-            panel->Size = Drawing::Size(500, 500);
-            panel->Location = Drawing::Point(
+            //panel->Size = Drawing::Size(500, 500);
+           /* panel->Location = Drawing::Point(
                 (tabAddRec->ClientSize.Width - panel->Width) / 2,
                 (tabAddRec->ClientSize.Height - panel->Height) / 2
             );
-            panel->Anchor = AnchorStyles::None;
+            panel->Anchor = AnchorStyles::None;*/
 
             txtRecName = CreateTextBox(120, 20);
             txtRecID = CreateTextBox(120, 50);

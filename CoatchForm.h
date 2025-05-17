@@ -88,7 +88,7 @@ namespace gymproject {
             this->tabHome->Padding = System::Windows::Forms::Padding(3);
             this->tabHome->Size = System::Drawing::Size(792, 474);
             this->tabHome->TabIndex = 0;
-            this->tabHome->Text = L"tabPage1";
+            this->tabHome->Text = L"Home";
             this->tabHome->UseVisualStyleBackColor = true;
             // 
             // tabAddSession
@@ -96,18 +96,18 @@ namespace gymproject {
             this->tabAddSession->Location = System::Drawing::Point(4, 22);
             this->tabAddSession->Name = L"tabAddSession";
             this->tabAddSession->Padding = System::Windows::Forms::Padding(3);
-            this->tabAddSession->Size = System::Drawing::Size(581, 376);
+            this->tabAddSession->Size = System::Drawing::Size(792, 474);
             this->tabAddSession->TabIndex = 1;
-            this->tabAddSession->Text = L"tabPage2";
+            this->tabAddSession->Text = L"Add Session";
             this->tabAddSession->UseVisualStyleBackColor = true;
             // 
             // tabWorkout
             // 
             this->tabWorkout->Location = System::Drawing::Point(4, 22);
             this->tabWorkout->Name = L"tabWorkout";
-            this->tabWorkout->Size = System::Drawing::Size(581, 376);
+            this->tabWorkout->Size = System::Drawing::Size(792, 474);
             this->tabWorkout->TabIndex = 2;
-            this->tabWorkout->Text = L"tabPage3";
+            this->tabWorkout->Text = L"Workouts";
             this->tabWorkout->UseVisualStyleBackColor = true;
             // 
             // CoatchForm

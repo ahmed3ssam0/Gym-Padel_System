@@ -240,7 +240,7 @@ namespace gymproject {
                this->button1->Name = L"button1";
                this->button1->Size = System::Drawing::Size(75, 23);
                this->button1->TabIndex = 7;
-               this->button1->Text = L"button1";
+               this->button1->Text = L"Add Session";
                this->button1->UseVisualStyleBackColor = true;
                this->button1->Click += gcnew System::EventHandler(this, &Add_Sessions::button1_Click);
                // 
@@ -341,7 +341,8 @@ namespace gymproject {
         float duration = (float)numericUpDown3->Value;
         bool type = radioButton1->Checked;
 
-        GymClass newClass(name, capacity, startTime, duration, numberOfSessions, type);
+        GymClass newClass = GymClass(name, capacity, startTime, duration, numberOfSessions, type);
+		newClass.setClassCoach(currentCoach->getid());
         currentCoach->addClass(newClass);
 
         dataGridView1->Rows->Add(
