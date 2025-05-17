@@ -44,6 +44,8 @@ public:
 	bool removeClass( string className);
 	//assign workout plan
 	void assignWorkoutPlan(string className);
+	//remove workout plan
+	void removeWorkoutPlan(string className);
 	//display
 	void displayClasses();
 };
