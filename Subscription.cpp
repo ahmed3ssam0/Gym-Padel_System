@@ -58,6 +58,10 @@ string Subscription::end_date_calc(string startDate, int period) {
     year = stoi(x);
     if (period == 1) year += period;
     else month += period;
+    if (month % 12 != month) {
+        ++year;
+		month = month % 12;
+    }
     string end = to_string(day) + "-" + to_string(month) + "-" + to_string(year);
     return end;
 }

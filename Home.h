@@ -1,7 +1,10 @@
 #pragma once
 #include "JoinClass.h"
 #include "RenewSubscription.h"
+#include "TraineeHistory.h"
 #include "BookCourt.h"
+#include "System.h"
+
 namespace gymproject {
 
 	using namespace System;
@@ -26,14 +29,16 @@ namespace gymproject {
 	private: System::Windows::Forms::Button^ button1;
 	private: Trainee* trainee;
 	private: Padel* padel;
+	private: SystemManager* sys;
 	public:
-		Home(Gym* gym, Trainee* trainee, Padel* padel)
+		Home(Gym* gym, Trainee* trainee, Padel* padel, SystemManager* sys)
 		{
 			InitializeComponent();
 			this->DoubleBuffered = true;
 			this->gym = gym;
 			this->trainee = trainee;
 			this->padel = padel;
+			this->sys = sys;
 			this->WindowState = FormWindowState::Maximized;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			/*if (cachedBackground == nullptr)
@@ -44,7 +49,8 @@ namespace gymproject {
 			tabPage1->Controls->Add(gcnew JoinClass(gym, trainee));
 			tabPage2->Controls->Add(gcnew RenewSubscription(trainee));
 			tabPage3->Controls->Add(gcnew ava_court(padel, trainee));
-
+			tabPage4->Controls->Add(gcnew TraineeHistory(trainee));
+			this->label1->Text = L"Welcome Trainee " + gcnew System::String(trainee->getName().c_str());
 		}
 		Home(Gym* gym, Trainee* trainee)
 		{
@@ -61,7 +67,8 @@ namespace gymproject {
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;*/
 			tabPage1->Controls->Add(gcnew JoinClass(gym, trainee));
 			tabPage2->Controls->Add(gcnew RenewSubscription(trainee));
-
+			tabPage4->Controls->Add(gcnew TraineeHistory(trainee));
+			this->label1->Text = L"Welcome Trainee " + gcnew System::String(trainee->getName().c_str());
 		}
 		Home(Gym* gym)
 		{
@@ -135,6 +142,7 @@ namespace gymproject {
 		void InitializeComponent(void)
 		{
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
@@ -142,7 +150,6 @@ namespace gymproject {
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage4 = (gcnew System::Windows::Forms::TabPage());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->tabControl1->SuspendLayout();
@@ -158,6 +165,16 @@ namespace gymproject {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1169, 163);
 			this->panel1->TabIndex = 1;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(1028, 73);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(104, 34);
+			this->button1->TabIndex = 1;
+			this->button1->Text = L"Logout";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Home::button1_Click);
 			// 
 			// label1
 			// 
@@ -234,15 +251,6 @@ namespace gymproject {
 			this->tabPage4->Text = L"View Workout History";
 			this->tabPage4->UseVisualStyleBackColor = true;
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(1028, 73);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(104, 34);
-			this->button1->TabIndex = 1;
-			this->button1->Text = L"Logout";
-			this->button1->UseVisualStyleBackColor = true;
-			// 
 			// Home
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -266,5 +274,6 @@ namespace gymproject {
 		}
 #pragma endregion
 	
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

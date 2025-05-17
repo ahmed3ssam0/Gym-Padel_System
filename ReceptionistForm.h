@@ -99,11 +99,12 @@ namespace gymproject {
 			// 
 			// label1
 			// 
-			this->label1->Font = (gcnew System::Drawing::Font(L"ROG Fonts", 22.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 22.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(419, 9);
+			this->label1->Location = System::Drawing::Point(314, 7);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(395, 51);
+			this->label1->Size = System::Drawing::Size(296, 41);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Receptionist";
 			// 
@@ -112,11 +113,12 @@ namespace gymproject {
 			this->sign_up_bt->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->sign_up_bt->Font = (gcnew System::Drawing::Font(L"ROG Fonts", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->sign_up_bt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->sign_up_bt->Location = System::Drawing::Point(25, 482);
+			this->sign_up_bt->Location = System::Drawing::Point(19, 392);
+			this->sign_up_bt->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->sign_up_bt->Name = L"sign_up_bt";
-			this->sign_up_bt->Size = System::Drawing::Size(250, 87);
+			this->sign_up_bt->Size = System::Drawing::Size(190, 79);
 			this->sign_up_bt->TabIndex = 1;
 			this->sign_up_bt->Text = L"sign up a new trainee";
 			this->sign_up_bt->UseVisualStyleBackColor = true;
@@ -127,9 +129,10 @@ namespace gymproject {
 			this->id_txt->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->id_txt->Location = System::Drawing::Point(300, 547);
+			this->id_txt->Location = System::Drawing::Point(225, 444);
+			this->id_txt->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->id_txt->Name = L"id_txt";
-			this->id_txt->Size = System::Drawing::Size(246, 22);
+			this->id_txt->Size = System::Drawing::Size(188, 20);
 			this->id_txt->TabIndex = 2;
 			// 
 			// label2
@@ -137,11 +140,12 @@ namespace gymproject {
 			this->label2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->label2->Font = (gcnew System::Drawing::Font(L"ROG Fonts", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(300, 498);
+			this->label2->Location = System::Drawing::Point(225, 405);
+			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(246, 33);
+			this->label2->Size = System::Drawing::Size(186, 35);
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"search by ID";
 			// 
@@ -150,11 +154,12 @@ namespace gymproject {
 			this->search_bt->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->search_bt->Font = (gcnew System::Drawing::Font(L"ROG Fonts", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->search_bt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->search_bt->Location = System::Drawing::Point(572, 535);
+			this->search_bt->Location = System::Drawing::Point(429, 435);
+			this->search_bt->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->search_bt->Name = L"search_bt";
-			this->search_bt->Size = System::Drawing::Size(242, 40);
+			this->search_bt->Size = System::Drawing::Size(184, 40);
 			this->search_bt->TabIndex = 4;
 			this->search_bt->Text = L"search";
 			this->search_bt->UseVisualStyleBackColor = true;
@@ -166,12 +171,13 @@ namespace gymproject {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->view_bt->BackColor = System::Drawing::SystemColors::ControlLightLight;
-			this->view_bt->Font = (gcnew System::Drawing::Font(L"ROG Fonts", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->view_bt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->view_bt->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->view_bt->Location = System::Drawing::Point(829, 535);
+			this->view_bt->Location = System::Drawing::Point(622, 435);
+			this->view_bt->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->view_bt->Name = L"view_bt";
-			this->view_bt->Size = System::Drawing::Size(242, 39);
+			this->view_bt->Size = System::Drawing::Size(184, 40);
 			this->view_bt->TabIndex = 5;
 			this->view_bt->Text = L"View All";
 			this->view_bt->UseVisualStyleBackColor = false;
@@ -197,12 +203,13 @@ namespace gymproject {
 				this->id_col,
 					this->name_col, this->phone_col, this->dob_col, this->email_col, this->password_col, this->vip_col, this->sub_col, this->gender_col
 			});
-			this->dataGridView1->Location = System::Drawing::Point(12, 90);
+			this->dataGridView1->Location = System::Drawing::Point(9, 73);
+			this->dataGridView1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersVisible = false;
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(1187, 309);
+			this->dataGridView1->Size = System::Drawing::Size(892, 259);
 			this->dataGridView1->TabIndex = 6;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Receptionist_Form::dataGridView1_CellContentClick);
 			// 
@@ -271,9 +278,9 @@ namespace gymproject {
 			// 
 			// Receptionist_Form
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1211, 589);
+			this->ClientSize = System::Drawing::Size(910, 487);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->view_bt);
 			this->Controls->Add(this->search_bt);
@@ -281,6 +288,7 @@ namespace gymproject {
 			this->Controls->Add(this->id_txt);
 			this->Controls->Add(this->sign_up_bt);
 			this->Controls->Add(this->label1);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"Receptionist_Form";
 			this->Text = L"Receptionist_Form";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();

@@ -13,7 +13,7 @@ namespace gymproject {
 	/// <summary>
 	/// Summary for TraineeHistory
 	/// </summary>
-	public ref class TraineeHistory : public System::Windows::Forms::Form
+	public ref class TraineeHistory : public System::Windows::Forms::UserControl
 	{
 	private: Trainee* trainee;
 	public:
@@ -22,15 +22,7 @@ namespace gymproject {
         {
            InitializeComponent();
            this->trainee = trainee;
-           list<WorkoutPlan> workoutHistory = trainee->getWorkoutHistory();
-           for (auto& workout : workoutHistory) {
-               // Use msclr::interop to convert std::string to System::String
-               String^ name = gcnew String(workout.getName().c_str());
-               String^ type = gcnew String(workout.getType().c_str());
-               String^ intensity = gcnew String(workout.getIntensity().c_str());
-
-               dataGridView1->Rows->Add(name, workout.getHoursPerDay(), type, intensity, workout.getLostCalories());
-           }
+           
         }
 
 	protected:
@@ -50,6 +42,7 @@ namespace gymproject {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ intensity;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ lost;
+	private: System::Windows::Forms::Button^ button1;
 
 
 
@@ -83,6 +76,7 @@ namespace gymproject {
 			this->type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->intensity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->lost = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -96,7 +90,7 @@ namespace gymproject {
 			this->dataGridView1->Dock = System::Windows::Forms::DockStyle::Top;
 			this->dataGridView1->Location = System::Drawing::Point(0, 0);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(723, 282);
+			this->dataGridView1->Size = System::Drawing::Size(795, 282);
 			this->dataGridView1->TabIndex = 0;
 			// 
 			// name
@@ -134,18 +128,38 @@ namespace gymproject {
 			this->lost->Name = L"lost";
 			this->lost->ReadOnly = true;
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(531, 404);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 1;
+			this->button1->Text = L"Refresh";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &TraineeHistory::button1_Click);
+			// 
 			// TraineeHistory
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(723, 512);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->dataGridView1);
 			this->Name = L"TraineeHistory";
-			this->Text = L"TraineeHistory";
+			this->Size = System::Drawing::Size(795, 512);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	};
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		for (auto& workout : trainee->getWorkoutHistory()) {
+			String^ name = gcnew String(workout.getName().c_str());
+			String^ type = gcnew String(workout.getType().c_str());
+			String^ intensity = gcnew String(workout.getIntensity().c_str());
+
+			dataGridView1->Rows->Add(name, workout.getHoursPerDay(), type, intensity, workout.getLostCalories());
+		}
+		MessageBox::Show("Workout History Refreshed.");
+	}
+};
 }

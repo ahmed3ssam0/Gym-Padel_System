@@ -73,7 +73,7 @@ namespace gymproject {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
 
-	private: System::Windows::Forms::Button^ button2;
+
 	private: System::Windows::Forms::Button^ button1;
 
 	private: System::Windows::Forms::ComboBox^ comboBox1;
@@ -99,7 +99,6 @@ namespace gymproject {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
@@ -125,7 +124,6 @@ namespace gymproject {
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->comboBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->label2);
-			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
 			this->splitContainer1->Size = System::Drawing::Size(1448, 888);
 			this->splitContainer1->SplitterDistance = 410;
@@ -181,19 +179,9 @@ namespace gymproject {
 			this->label2->TabIndex = 4;
 			this->label2->Text = L"Class";
 			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(813, 330);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(246, 40);
-			this->button2->TabIndex = 1;
-			this->button2->Text = L"Cancel";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &JoinClass::button2_Click);
-			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(450, 330);
+			this->button1->Location = System::Drawing::Point(585, 309);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(246, 40);
 			this->button1->TabIndex = 0;
@@ -205,13 +193,9 @@ namespace gymproject {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1448, 888);
 			this->Controls->Add(this->splitContainer1);
-			//this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"JoinClass";
-			//this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = L"JoinClass";
-			//this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->Size = System::Drawing::Size(1448, 888);
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);
@@ -224,7 +208,18 @@ namespace gymproject {
 		}
 
 #pragma endregion
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void JoinClass::button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		string className = msclr::interop::marshal_as<string>(comboBox1->SelectedItem->ToString());
+		unordered_map<string, GymClass> gymClasses = gym->getGymClasses();
+		auto it = gymClasses.find(className);
+		if (it != gymClasses.end()) {
+			it->second.addTraineeToClass(*this->trainee);
+			this->trainee->setWorkoutHistory(gymClasses[className].getClassWorkoutPlans());
+			MessageBox::Show("You have successfully joined the class: " + gcnew String(className.c_str()));
+		}
+		else {
+			MessageBox::Show("Class not found!");
+		}
+	}
 };
 }

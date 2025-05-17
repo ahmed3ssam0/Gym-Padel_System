@@ -13,6 +13,7 @@
 #include "Register.h"
 #include "Gym.h"
 #include "System.h"
+#include "CoatchForm.h"
 
 
 namespace gymproject {
@@ -34,11 +35,15 @@ namespace gymproject {
 			unordered_map<string, Receptionist>* receptionistList;
 			unordered_map<string, Manager>* manager;
 			SystemManager* sys;
+			Gym* gym;
+			Padel* padel;
 		public:
-			Login1(SystemManager* sys)
+			Login1(SystemManager* sys, Gym* gym, Padel* padel)
 			{
 				InitializeComponent();
 				this->sys = sys;
+				this->gym = gym;
+				this->padel = padel;
 				traineeList = &(sys->traineeList);
 				coatchList = &(sys->coatchList);
 				receptionistList = &(sys->receptionistList);
@@ -235,7 +240,7 @@ namespace gymproject {
 				MessageBox::Show("Coach login successful!");
 				std::string coachId = msclr::interop::marshal_as<std::string>(id);
 				Coatch* coach = &(coatchList->at(coachId));
-				Home2^ nextForm = gcnew Home2(coach);
+				CoatchForm^ nextForm = gcnew CoatchForm(coach);
 				nextForm->Location = this->Location;
 				nextForm->Size = this->Size;
 				nextForm->BackgroundImage = this->BackgroundImage;
@@ -296,7 +301,7 @@ namespace gymproject {
 		}
 
 		private: System::Void signup_Click(System::Object^ sender, System::EventArgs^ e) {
-			Register^ nextForm = gcnew Register(sys);
+			Register^ nextForm = gcnew Register(sys, gym, padel);
 			nextForm->StartPosition = FormStartPosition::Manual;
 			nextForm->Location = this->Location;
 			nextForm->Size = this->Size;

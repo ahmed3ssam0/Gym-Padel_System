@@ -97,3 +97,14 @@ void Coatch::assignWorkoutPlan(string className) {
 	}
 	cout << "Class not found.\n";
 }
+//remove workout plan
+void Coatch::removeWorkoutPlan(string workoutName) {
+	for (auto it = CoatchWorkoutPlans.begin(); it != CoatchWorkoutPlans.end(); ++it) {
+		if (it->getName() == workoutName) {
+			CoatchWorkoutPlans.erase(it);
+			cout << "Workout plan removed successfully.\n";
+			return;
+		}
+	}
+	cout << "Workout plan not found.\n";
+}

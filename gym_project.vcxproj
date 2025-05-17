@@ -249,8 +249,17 @@
     <EmbeddedResource Include="PlanForm.resx">
       <DependentUpon>PlanForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReceptionistForm.resx">
+      <DependentUpon>ReceptionistForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemovePlan.resx">
+      <DependentUpon>RemovePlan.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoveSession.resx">
+      <DependentUpon>RemoveSession.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RenewSubscription.resx">
       <DependentUpon>RenewSubscription.h</DependentUpon>

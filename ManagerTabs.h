@@ -1,56 +1,73 @@
 #pragma once
 #include "Coatch.h"
+#include "Receptionist.h"
 #include <string>
-#include <msclr/marshal_cppstd.h>
-#include <iostream>
 #include <vector>
+#include <msclr/marshal_cppstd.h>
+#include "Manager.h"
+#include "System.h"
 
 namespace gymproject {
 
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
+    using namespace System;
+    using namespace System::ComponentModel;
+    using namespace System::Collections;
+    using namespace System::Windows::Forms;
+    using namespace System::Data;
+    using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for ManagerTabs
-	/// </summary>
-	public ref class ManagerForm : public System::Windows::Forms::Form
-	{
+    public ref class ManagerForm : public System::Windows::Forms::Form
+    {
     private:
         TabControl^ tabControl;
 
         TabPage^ tabAddRec;
+        TabPage^ tabRemoveRec;
+        TabPage^ tabAddCoach;
+        TabPage^ tabRemoveCoach;
+
         TextBox^ txtRecName;
         TextBox^ txtRecID;
         TextBox^ txtRecPass;
         TextBox^ txtRecSalary;
-        Button^ btnAddRec;
-        ListBox^ listRec;
-
-        TabPage^ tabRemoveRec;
         TextBox^ txtRecRemoveName;
+        Button^ btnAddRec;
         Button^ btnRemoveRec;
+        DataGridView^ dgvRec;
 
-        TabPage^ tabAddCoach;
         TextBox^ txtCoachName;
         TextBox^ txtCoachID;
         TextBox^ txtCoachPass;
         TextBox^ txtCoachSalary;
-        Button^ btnAddCoach;
-        ListBox^ listCoach;
-
-        TabPage^ tabRemoveCoach;
         TextBox^ txtCoachRemoveName;
+        Button^ btnAddCoach;
         Button^ btnRemoveCoach;
+        DataGridView^ dgvCoach;
+
+		Panel^ topPanel;
+		Panel^ bottomPanel;
+
+		Manager* manager;
+		SystemManager* system;
 
     public:
         ManagerForm()
         {
             this->Text = "Gym Manager Panel";
-            this->Size = System::Drawing::Size(500, 400);
+            this->Size = Drawing::Size(500, 500);
+
+            topPanel = gcnew Panel();
+            bottomPanel = gcnew Panel();
+
+            Label^ lblWelcome = gcnew Label();
+            lblWelcome->Text = "Welcome, Manager!";
+            lblWelcome->Font = gcnew Drawing::Font("Arial", 14, FontStyle::Bold);
+            lblWelcome->AutoSize = true;
+            lblWelcome->Location = Point(10, 10);
+
+            topPanel->Controls->Add(lblWelcome);
+            topPanel->Dock = DockStyle::Top;
+            topPanel->Height = 40;
 
             tabControl = gcnew TabControl();
             tabControl->Dock = DockStyle::Fill;
@@ -65,7 +82,11 @@ namespace gymproject {
             tabControl->TabPages->Add(tabAddCoach);
             tabControl->TabPages->Add(tabRemoveCoach);
 
-            this->Controls->Add(tabControl);
+            bottomPanel->Controls->Add(tabControl);
+            bottomPanel->Dock = DockStyle::Fill;
+
+            this->Controls->Add(bottomPanel);
+            this->Controls->Add(topPanel);
         }
 
     private:
@@ -73,6 +94,14 @@ namespace gymproject {
         void InitAddReceptionistTab()
         {
             tabAddRec = gcnew TabPage("Add Receptionist");
+            Panel^ panel = gcnew Panel();
+            panel->Dock = DockStyle::Fill;
+            panel->Size = Drawing::Size(500, 500);
+            panel->Location = Drawing::Point(
+                (tabAddRec->ClientSize.Width - panel->Width) / 2,
+                (tabAddRec->ClientSize.Height - panel->Height) / 2
+            );
+            panel->Anchor = AnchorStyles::None;
 
             txtRecName = CreateTextBox(120, 20);
             txtRecID = CreateTextBox(120, 50);
@@ -83,40 +112,63 @@ namespace gymproject {
             btnAddRec->Location = Point(10, 150);
             btnAddRec->Click += gcnew EventHandler(this, &ManagerForm::AddReceptionist);
 
-            listRec = gcnew ListBox();
-            listRec->Location = Point(10, 190);
-            listRec->Size = Drawing::Size(440, 120);
+            dgvRec = gcnew DataGridView();
+            dgvRec->Location = Point(10, 190);
+            dgvRec->Size = Drawing::Size(440, 200);
+            dgvRec->ColumnCount = 2;
+            dgvRec->Columns[0]->Name = "Name";
+            dgvRec->Columns[1]->Name = "ID";
 
-            tabAddRec->Controls->Add(CreateLabel("Name:", 10, 20));
-            tabAddRec->Controls->Add(txtRecName);
-            tabAddRec->Controls->Add(CreateLabel("ID:", 10, 50));
-            tabAddRec->Controls->Add(txtRecID);
-            tabAddRec->Controls->Add(CreateLabel("Password:", 10, 80));
-            tabAddRec->Controls->Add(txtRecPass);
-            tabAddRec->Controls->Add(CreateLabel("Salary:", 10, 110));
-            tabAddRec->Controls->Add(txtRecSalary);
-            tabAddRec->Controls->Add(btnAddRec);
-            tabAddRec->Controls->Add(listRec);
+            panel->Controls->Add(CreateLabel("Name:", 10, 20));
+            panel->Controls->Add(txtRecName);
+            panel->Controls->Add(CreateLabel("ID:", 10, 50));
+            panel->Controls->Add(txtRecID);
+            panel->Controls->Add(CreateLabel("Password:", 10, 80));
+            panel->Controls->Add(txtRecPass);
+            panel->Controls->Add(CreateLabel("Salary:", 10, 110));
+            panel->Controls->Add(txtRecSalary);
+            panel->Controls->Add(btnAddRec);
+            panel->Controls->Add(dgvRec);
+
+            tabAddRec->Controls->Add(panel);
         }
 
         void InitRemoveReceptionistTab()
         {
             tabRemoveRec = gcnew TabPage("Remove Receptionist");
+            Panel^ panel = gcnew Panel();
+            panel->Dock = DockStyle::Fill;
+            panel->Size = Drawing::Size(350, 300);
+            panel->Location = Drawing::Point(
+                (tabAddRec->ClientSize.Width - panel->Width) / 2,
+                (tabAddRec->ClientSize.Height - panel->Height) / 2
+            );
+            panel->Anchor = AnchorStyles::None;
 
-            txtRecRemoveName = CreateTextBox(150, 30);
+            txtRecRemoveName = CreateTextBox(200, 30);
             btnRemoveRec = gcnew Button();
             btnRemoveRec->Text = "Delete Receptionist by Name";
-            btnRemoveRec->Location = Point(150, 70);
+            btnRemoveRec->Location = Point(200, 70);
             btnRemoveRec->Click += gcnew EventHandler(this, &ManagerForm::RemoveReceptionist);
 
-            tabRemoveRec->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
-            tabRemoveRec->Controls->Add(txtRecRemoveName);
-            tabRemoveRec->Controls->Add(btnRemoveRec);
+            panel->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
+            panel->Controls->Add(txtRecRemoveName);
+            panel->Controls->Add(btnRemoveRec);
+
+            tabRemoveRec->Controls->Add(panel);
         }
 
         void InitAddCoachTab()
         {
             tabAddCoach = gcnew TabPage("Add Coach");
+            Panel^ panel = gcnew Panel();
+            panel->Dock = DockStyle::Fill;
+            panel->Size = Drawing::Size(350, 300);
+            panel->Location = Drawing::Point(
+                (tabAddRec->ClientSize.Width - panel->Width) / 2,
+                (tabAddRec->ClientSize.Height - panel->Height) / 2
+            );
+            panel->Anchor = AnchorStyles::None;
 
             txtCoachName = CreateTextBox(120, 20);
             txtCoachID = CreateTextBox(120, 50);
@@ -127,35 +179,50 @@ namespace gymproject {
             btnAddCoach->Location = Point(10, 150);
             btnAddCoach->Click += gcnew EventHandler(this, &ManagerForm::AddCoach);
 
-            listCoach = gcnew ListBox();
-            listCoach->Location = Point(10, 190);
-            listCoach->Size = Drawing::Size(440, 120);
+            dgvCoach = gcnew DataGridView();
+            dgvCoach->Location = Point(10, 190);
+            dgvCoach->Size = Drawing::Size(440, 200);
+            dgvCoach->ColumnCount = 2;
+            dgvCoach->Columns[0]->Name = "Name";
+            dgvCoach->Columns[1]->Name = "ID";
 
-            tabAddCoach->Controls->Add(CreateLabel("Name:", 10, 20));
-            tabAddCoach->Controls->Add(txtCoachName);
-            tabAddCoach->Controls->Add(CreateLabel("ID:", 10, 50));
-            tabAddCoach->Controls->Add(txtCoachID);
-            tabAddCoach->Controls->Add(CreateLabel("Password:", 10, 80));
-            tabAddCoach->Controls->Add(txtCoachPass);
-            tabAddCoach->Controls->Add(CreateLabel("Salary:", 10, 110));
-            tabAddCoach->Controls->Add(txtCoachSalary);
-            tabAddCoach->Controls->Add(btnAddCoach);
-            tabAddCoach->Controls->Add(listCoach);
+            panel->Controls->Add(CreateLabel("Name:", 10, 20));
+            panel->Controls->Add(txtCoachName);
+            panel->Controls->Add(CreateLabel("ID:", 10, 50));
+            panel->Controls->Add(txtCoachID);
+            panel->Controls->Add(CreateLabel("Password:", 10, 80));
+            panel->Controls->Add(txtCoachPass);
+            panel->Controls->Add(CreateLabel("Salary:", 10, 110));
+            panel->Controls->Add(txtCoachSalary);
+            panel->Controls->Add(btnAddCoach);
+            panel->Controls->Add(dgvCoach);
+
+            tabAddCoach->Controls->Add(panel);
         }
 
         void InitRemoveCoachTab()
         {
             tabRemoveCoach = gcnew TabPage("Remove Coach");
+            Panel^ panel = gcnew Panel();
+            panel->Dock = DockStyle::Fill;
+            panel->Size = Drawing::Size(350, 300);
+            panel->Location = Drawing::Point(
+                (tabAddRec->ClientSize.Width - panel->Width) / 2,
+                (tabAddRec->ClientSize.Height - panel->Height) / 2
+            );
+            panel->Anchor = AnchorStyles::None;
 
-            txtCoachRemoveName = CreateTextBox(150, 30);
+            txtCoachRemoveName = CreateTextBox(200, 30);
             btnRemoveCoach = gcnew Button();
             btnRemoveCoach->Text = "Delete Coach by Name";
-            btnRemoveCoach->Location = Point(150, 70);
+            btnRemoveCoach->Location = Point(200, 70);
             btnRemoveCoach->Click += gcnew EventHandler(this, &ManagerForm::RemoveCoach);
 
-            tabRemoveCoach->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
-            tabRemoveCoach->Controls->Add(txtCoachRemoveName);
-            tabRemoveCoach->Controls->Add(btnRemoveCoach);
+            panel->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
+            panel->Controls->Add(txtCoachRemoveName);
+            panel->Controls->Add(btnRemoveCoach);
+
+            tabRemoveCoach->Controls->Add(panel);
         }
 
         Label^ CreateLabel(String^ text, int x, int y)
@@ -163,6 +230,7 @@ namespace gymproject {
             Label^ label = gcnew Label();
             label->Text = text;
             label->Location = Point(x, y);
+            label->AutoSize = true;
             return label;
         }
 
@@ -181,8 +249,16 @@ namespace gymproject {
                 return;
             }
 
-            String^ entry = txtRecName->Text + " | ID: " + txtRecID->Text;
-            listRec->Items->Add(entry);
+            std::string name = msclr::interop::marshal_as<std::string>(txtRecName->Text);
+            std::string id = msclr::interop::marshal_as<std::string>(txtRecID->Text);
+            std::string pass = msclr::interop::marshal_as<std::string>(txtRecPass->Text);
+            double salary = std::stod(msclr::interop::marshal_as<std::string>(txtRecSalary->Text));
+
+            Receptionist* rec = new Receptionist(name, id, pass, salary);
+            
+
+            dgvRec->Rows->Add(gcnew cli::array<String^> { txtRecName->Text, txtRecID->Text });
+
             txtRecName->Clear(); txtRecID->Clear(); txtRecPass->Clear(); txtRecSalary->Clear();
             MessageBox::Show("Receptionist added successfully.");
         }
@@ -190,9 +266,9 @@ namespace gymproject {
         void RemoveReceptionist(Object^ sender, EventArgs^ e)
         {
             String^ name = txtRecRemoveName->Text;
-            for (int i = 0; i < listRec->Items->Count; i++) {
-                if (listRec->Items[i]->ToString()->StartsWith(name + " ")) {
-                    listRec->Items->RemoveAt(i);
+            for (int i = 0; i < dgvRec->Rows->Count - 1; i++) {
+                if (dgvRec->Rows[i]->Cells[0]->Value->ToString() == name) {
+                    dgvRec->Rows->RemoveAt(i);
                     MessageBox::Show("Receptionist removed successfully.");
                     return;
                 }
@@ -207,8 +283,16 @@ namespace gymproject {
                 return;
             }
 
-            String^ entry = txtCoachName->Text + " | ID: " + txtCoachID->Text;
-            listCoach->Items->Add(entry);
+            std::string name = msclr::interop::marshal_as<std::string>(txtCoachName->Text);
+            std::string id = msclr::interop::marshal_as<std::string>(txtCoachID->Text);
+            std::string pass = msclr::interop::marshal_as<std::string>(txtCoachPass->Text);
+            double salary = std::stod(msclr::interop::marshal_as<std::string>(txtCoachSalary->Text));
+
+            Coatch* coach = new Coatch(name, id, pass, salary);
+            
+
+            dgvRec->Rows->Add(gcnew cli::array<String^, 1> { txtRecName->Text, txtRecID->Text });
+
             txtCoachName->Clear(); txtCoachID->Clear(); txtCoachPass->Clear(); txtCoachSalary->Clear();
             MessageBox::Show("Coach added successfully.");
         }
@@ -216,14 +300,14 @@ namespace gymproject {
         void RemoveCoach(Object^ sender, EventArgs^ e)
         {
             String^ name = txtCoachRemoveName->Text;
-            for (int i = 0; i < listCoach->Items->Count; i++) {
-                if (listCoach->Items[i]->ToString()->StartsWith(name + " ")) {
-                    listCoach->Items->RemoveAt(i);
+            for (int i = 0; i < dgvCoach->Rows->Count - 1; i++) {
+                if (dgvCoach->Rows[i]->Cells[0]->Value->ToString() == name) {
+                    dgvCoach->Rows->RemoveAt(i);
                     MessageBox::Show("Coach removed successfully.");
                     return;
                 }
             }
             MessageBox::Show("Coach not found.");
         }
-	};
+    };
 }

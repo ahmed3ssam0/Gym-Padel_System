@@ -5,6 +5,9 @@
 #include <unordered_map>
 #include <string>
 #include <msclr/marshal_cppstd.h>
+#include "Trainee.h"
+#include "Gym.h"
+#include "Padel.h"
 using namespace std;
 namespace gymproject {
 
@@ -20,15 +23,19 @@ namespace gymproject {
 	{
 		unordered_map<int, Trainee>* traineeList;
 		SystemManager* sys;
+		Gym* gym;
+		Padel* padel;
 	public:
 		Register(void)
 		{
 			InitializeComponent();
 		}
-		Register(SystemManager* sys)
+		Register(SystemManager* sys, Gym* gym, Padel* padel)
 		{
 			InitializeComponent();
 			this->sys = sys;
+			this->gym = gym;
+			this->padel = padel;
 			traineeList = &(sys->traineeList);
 			comboBox1->Items->Add("1 Year");
 			comboBox1->Items->Add("6 Months");

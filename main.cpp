@@ -12,6 +12,7 @@
 #include "CoatchForm.h"
 #include "System.h"
 #include "Register.h"
+#include "ManagerTabs.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -52,13 +53,16 @@ int main(cli::array<System::String^>^ args) {
 	}
 
 	Gym gym = Gym();
-	gym.addGymClass(GymClass("Yoga", 20, "10:00", 1, 5, false));
+	GymClass gymClass = GymClass("Yoga", 20, "10:00", 1, 5, false);
+	gymClass.addWorkoutPlan(WorkoutPlan("Yoga", 20, "Yoga", "Low", 100));
+	gym.addGymClass(gymClass);
 	gym.addGymClass(GymClass("Upper Body", 20, "13:00", 2, 10, false));
 	gym.addGymClass(GymClass("Lower Body", 20, "13:00", 2, 10, false));
 
 	Coatch coatch = Coatch("ahmed", "111", "123456789", 12345);
-	coatch.addClass(GymClass("Yoga", 20, "10:00", 1, 5, false));
-	coatch.assignWorkoutPlan("Yoga");
+	coatch.addClass(gymClass);
+	gymClass.addTraineeToClass(trainee);
+	//coatch.assignWorkoutPlan("Yoga");
 
 	/*Booking booking1 = Booking(trainee, court, "25-4-2025", "11:00", 2);
 	booking1.displayBookingInfo();
@@ -74,7 +78,9 @@ int main(cli::array<System::String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	//Application::Run(gcnew Register(&sys));
-	Application::Run(gcnew Home(&gym, &trainee, &padel));
+	Application::Run(gcnew Home(&gym, &trainee, &padel, &sys));
+	//Application::Run(gcnew CoatchForm(&coatch));
+	//Application::Run(gcnew ManagerForm());
 	//sys.Save_All_Data();
     return 0;
 }
