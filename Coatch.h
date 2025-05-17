@@ -9,7 +9,7 @@ class Coatch
 {
 private:
 	string name;
-	string id;
+	string id ;
 	string password;
 	float salary;
 	list<GymClass> classAssignments;
@@ -44,8 +44,6 @@ public:
 	bool removeClass( string className);
 	//assign workout plan
 	void assignWorkoutPlan(string className);
-	//remove workout plan
-	void removeWorkoutPlan(string className);
 	//display
 	void displayClasses();
 };

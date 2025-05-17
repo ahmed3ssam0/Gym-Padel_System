@@ -1,13 +1,14 @@
+#include <xlnt/xlnt.hpp>
 #include "System.h"
 #include <iostream>
 
-// Trainee
-//load
+ //Trainee
+////lad
 unordered_map<int, Trainee> SystemManager::Load_Trainee(xlnt::worksheet& ws) {
     unordered_map<int, Trainee> traineeList;
 
     for (auto row : ws.rows(false)) {
-        // Skip the header row
+         //Skip the header row
         if (row[0].to_string() == "ID") continue;
         Trainee t;
         t.setId(row[0].value<int>());                      // A - ID
@@ -26,16 +27,24 @@ unordered_map<int, Trainee> SystemManager::Load_Trainee(xlnt::worksheet& ws) {
 
 //save
 void SystemManager::Save_Trainee(xlnt::worksheet& ws, unordered_map<int, Trainee> traineeList) {
-
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 7; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     //// Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+    // // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Name");
+    ws.cell("C1").value("Phone");
+    ws.cell("D1").value("Gender");
+    ws.cell("E1").value("Date of Birth");
+    ws.cell("F1").value("Email");
+    ws.cell("G1").value("Password");
+    ws.cell("H1").value("IsVIP");
 
     int row_num = 2;
     for (const auto& pair : traineeList) {
@@ -52,7 +61,6 @@ void SystemManager::Save_Trainee(xlnt::worksheet& ws, unordered_map<int, Trainee
 
         row_num++;
     }
-
 }
 
 //get id
@@ -68,8 +76,8 @@ int SystemManager::GetMaxTraineeID(xlnt::worksheet& ws) {
 	return maxId;
 }
 
-/// Coatch
-//load
+ //Coatch
+/////lad
 unordered_map<string, Coatch> SystemManager::Load_Coatch(xlnt::worksheet& ws) {
     unordered_map<string, Coatch> coatchList;
 
@@ -90,34 +98,41 @@ unordered_map<string, Coatch> SystemManager::Load_Coatch(xlnt::worksheet& ws) {
 
 //save
 void SystemManager::Save_Coatch(xlnt::worksheet& ws, unordered_map<string, Coatch> coatchList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 4; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Name");
+    ws.cell("C1").value("Password");
+    ws.cell("D1").value("Salary");
 
     int row_num = 2;
     for (const auto& pair : coatchList) {
         string id = pair.first;
         Coatch c = pair.second;
-
+        if (c.getid()[0] == '\0')
+            break;
         ws.cell("A" + std::to_string(row_num)).value(c.getid());
         ws.cell("B" + std::to_string(row_num)).value(c.getname());
-        ws.cell("C" + std::to_string(row_num)).value(c.getpassword());
-        ws.cell("D" + std::to_string(row_num)).value(c.getSalary());
 
+        ws.cell("C" + std::to_string(row_num)).value(c.getpassword());
+
+        ws.cell("D" + std::to_string(row_num)).value(c.getSalary());
         row_num++;
     }
 }
 
 
 
-// Receptionist
-//load
+ //Receptionist
+//lad
 unordered_map<string, Receptionist> SystemManager::Load_Receptionist(xlnt::worksheet& ws) {
     unordered_map<string, Receptionist> receptionistList;
 
@@ -138,21 +153,27 @@ unordered_map<string, Receptionist> SystemManager::Load_Receptionist(xlnt::works
 
 //save
 void SystemManager::Save_Receptionist(xlnt::worksheet& ws, unordered_map<string, Receptionist> receptionistList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 4; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Name");
+    ws.cell("C1").value("Password");
+    ws.cell("D1").value("Salary");
 
     int row_num = 2;
     for (const auto& pair : receptionistList) {
         string id = pair.first;
         Receptionist r = pair.second;
-
+        if (r.getid()[0] == '\0')
+            break;
         ws.cell("A" + std::to_string(row_num)).value(r.getid());
         ws.cell("B" + std::to_string(row_num)).value(r.getname());
         ws.cell("C" + std::to_string(row_num)).value(r.getpassword());
@@ -163,8 +184,8 @@ void SystemManager::Save_Receptionist(xlnt::worksheet& ws, unordered_map<string,
 }
 
 
-// Manager
-//load
+ //Manager
+//lad
 
 unordered_map<string, Manager> SystemManager::Load_Manager(xlnt::worksheet& ws) {
     unordered_map<string, Manager> managerList;
@@ -185,38 +206,38 @@ unordered_map<string, Manager> SystemManager::Load_Manager(xlnt::worksheet& ws) 
 
 //save
 void SystemManager::Save_Manager(xlnt::worksheet& ws, unordered_map<string, Manager> managerList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 3; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Name");
+    ws.cell("C1").value("Password");
 
     int row_num = 2;
     for (const auto& pair : managerList) {
         string id = pair.first;
-        int row_num = 2;
-        for (const auto& pair : managerList) {
-            string id = pair.first;
-            Manager m = pair.second;
+        Manager m = pair.second;
+        if (m.getid()[0] == '\0')
+            break;
+        ws.cell("A" + std::to_string(row_num)).value(m.getid());
+        ws.cell("B" + std::to_string(row_num)).value(m.getname());
+        ws.cell("C" + std::to_string(row_num)).value(m.getpassword());
 
-            ws.cell("A" + std::to_string(row_num)).value(m.getid());
-            ws.cell("B" + std::to_string(row_num)).value(m.getname());
-            ws.cell("C" + std::to_string(row_num)).value(m.getpassword());
-
-            row_num++;
-        }
-
+        row_num++;
     }
 }
 
 
 
-// Gym Class
-//load
+ //Gym Class
+//lad
 unordered_map<string, GymClass> SystemManager::Load_GymClass(xlnt::worksheet& ws) {
     unordered_map<string, GymClass> classList;
 
@@ -241,21 +262,31 @@ unordered_map<string, GymClass> SystemManager::Load_GymClass(xlnt::worksheet& ws
 
 //save
 void SystemManager::Save_GymClass(xlnt::worksheet& ws, unordered_map<string, GymClass> classList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 8; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Capacity");
+    ws.cell("C1").value("Start Time");
+    ws.cell("D1").value("End Time");
+    ws.cell("E1").value("Time Period");
+    ws.cell("F1").value("Number Of Sessions");
+    ws.cell("G1").value("Type");
+    ws.cell("H1").value("Class Coach");
 
     int row_num = 2;
     for (const auto& pair : classList) {
         string id = pair.first;
         GymClass g = pair.second;
-
+        if (g.getName()[0] == '\0')
+            break;
         ws.cell("A" + std::to_string(row_num)).value(g.getName());
         ws.cell("B" + std::to_string(row_num)).value(g.getCapacity());
         ws.cell("C" + std::to_string(row_num)).value(g.getStartTime());
@@ -269,8 +300,8 @@ void SystemManager::Save_GymClass(xlnt::worksheet& ws, unordered_map<string, Gym
     }
 }
 
-// Hall
-//load
+ //Hall
+//lad
 unordered_map<string, Hall> SystemManager::Load_Hall(xlnt::worksheet& ws) {
     unordered_map<string, Hall> hallList;
 
@@ -289,21 +320,25 @@ unordered_map<string, Hall> SystemManager::Load_Hall(xlnt::worksheet& ws) {
 
 //save
 void SystemManager::Save_Hall(xlnt::worksheet& ws, unordered_map<string, Hall> hallList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 2; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Name");
 
     int row_num = 2;
     for (const auto& pair : hallList) {
         string id = pair.first;
         Hall h = pair.second;
-
+        if (h.getCode()[0] == '\0')
+            break;
         ws.cell("A" + std::to_string(row_num)).value(h.getCode());
         ws.cell("B" + std::to_string(row_num)).value(h.getName());
 
@@ -312,7 +347,7 @@ void SystemManager::Save_Hall(xlnt::worksheet& ws, unordered_map<string, Hall> h
 }
 
 // Workout Plan
-//load
+//lad
 unordered_map<string, WorkoutPlan> SystemManager::Load_WorkoutPlan(xlnt::worksheet& ws) {
     unordered_map<string, WorkoutPlan> workoutPlanList;
 
@@ -335,22 +370,29 @@ unordered_map<string, WorkoutPlan> SystemManager::Load_WorkoutPlan(xlnt::workshe
 
 //save
 void SystemManager::Save_WorkoutPlan(xlnt::worksheet& ws, unordered_map<string, WorkoutPlan> workoutPlanList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 5; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Hours Per Day");
+    ws.cell("C1").value("Intensity");
+    ws.cell("D1").value("Lost Calories");
+    ws.cell("E1").value("Class Name Code");
 
     int row_num = 2;
 
     for (const auto& pair : workoutPlanList) {
         string id = pair.first;
         WorkoutPlan wp = pair.second;
-
+        if (wp.getName()[0] == '\0')
+            break;
         ws.cell("A" + std::to_string(row_num)).value(wp.getName());
         ws.cell("B" + std::to_string(row_num)).value(wp.getHoursPerDay());
         ws.cell("C" + std::to_string(row_num)).value(wp.getIntensity());
@@ -360,8 +402,8 @@ void SystemManager::Save_WorkoutPlan(xlnt::worksheet& ws, unordered_map<string, 
     }
 }
 
-// Court
-//load
+ //Court
+//lad
 unordered_map<string, Court> SystemManager::Load_Court(xlnt::worksheet& ws) {
     unordered_map<string, Court> courtList;
 
@@ -382,22 +424,27 @@ unordered_map<string, Court> SystemManager::Load_Court(xlnt::worksheet& ws) {
 
 //save
 void SystemManager::Save_Court(xlnt::worksheet& ws, unordered_map<string, Court> courtList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 4; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
 
+     // Add header row
+    ws.cell("A1").value("Name Code");
+    ws.cell("B1").value("Price");
+    ws.cell("C1").value("Location");
+    ws.cell("D1").value("Is Available");
 
     int row_num = 2;
     for (const auto& pair : courtList) {
         string id = pair.first;
         Court c = pair.second;
-
+        if (c.getName()[0] == '\0')
+            break;
         ws.cell("A" + std::to_string(row_num)).value(c.getName());
         ws.cell("B" + std::to_string(row_num)).value(c.getPrice());
         ws.cell("C" + std::to_string(row_num)).value(c.getLocation());
@@ -407,8 +454,8 @@ void SystemManager::Save_Court(xlnt::worksheet& ws, unordered_map<string, Court>
     }
 }
 
-// Booking
-//load
+ //Booking
+//lad
 
 unordered_map<string, Booking> SystemManager::Load_Booking(xlnt::worksheet& ws) {
     unordered_map<string, Booking> bookingList;
@@ -434,21 +481,31 @@ unordered_map<string, Booking> SystemManager::Load_Booking(xlnt::worksheet& ws) 
 
 //save
 void SystemManager::Save_Booking(xlnt::worksheet& ws, unordered_map<string, Booking> bookingList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 7; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
+
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Day");
+    ws.cell("C1").value("Price");
+    ws.cell("D1").value("Start Time");
+    ws.cell("E1").value("End Time");
+    ws.cell("F1").value("Time Period");
+    ws.cell("G1").value("Is Confirmed");
 
     int row_num = 2;
 
     for (const auto& pair : bookingList) {
         string id = pair.first;
         Booking b = pair.second;
+        if (b.getId()[0] == '\0')
+            break;
 
         ws.cell("A" + std::to_string(row_num)).value(b.getId());
         ws.cell("B" + std::to_string(row_num)).value(b.getDay());
@@ -462,8 +519,6 @@ void SystemManager::Save_Booking(xlnt::worksheet& ws, unordered_map<string, Book
     }
 }
 
-
-// Subscription
 
 unordered_map<int, Subscription> SystemManager::Load_Subscription(xlnt::worksheet& ws) {
     unordered_map<int, Subscription> subscriptionList;
@@ -480,7 +535,7 @@ unordered_map<int, Subscription> SystemManager::Load_Subscription(xlnt::workshee
         s.setEndDate(row[4].to_string());
         s.setPrice(row[5].value<float>());
 
-        subscriptionList[std::stoi(row[0].to_string())] = s;
+        subscriptionList[row[0].value<int>()] = s;
     }
 
     return subscriptionList;
@@ -488,22 +543,28 @@ unordered_map<int, Subscription> SystemManager::Load_Subscription(xlnt::workshee
 
 //save
 void SystemManager::Save_Subscription(xlnt::worksheet& ws, unordered_map<int, Subscription> subscriptionList) {
-    auto last_row = ws.highest_row();
-    for (int row = 2; row <= last_row; row++) {
-        for (int col = 1; col <= 6; col++) {
-            auto cell_ref = xlnt::cell_reference(col, row);
-            if (ws.has_cell(cell_ref)) {
-                ws.cell(cell_ref).clear_value();
-            }
+     // Clear all existing cells
+    for (auto row : ws.rows(false))
+    {
+        for (auto cell : row)
+        {
+            cell.clear_value();
         }
     }
 
+     // Add header row
+    ws.cell("A1").value("ID");
+    ws.cell("B1").value("Trainee ID");
+    ws.cell("C1").value("Start Date");
+    ws.cell("D1").value("Period");
+    ws.cell("E1").value("End Date");
+    ws.cell("F1").value("Price");
+	cout << "SUBSCRIPTION \n";
     int row_num = 2;
 
     for (const auto& pair : subscriptionList) {
         int id = pair.first;
         Subscription s = pair.second;
-
         ws.cell("A" + std::to_string(row_num)).value(s.getID());
         ws.cell("B" + std::to_string(row_num)).value(s.getTraineeID());
         ws.cell("C" + std::to_string(row_num)).value(s.getStartDate());
@@ -516,40 +577,56 @@ void SystemManager::Save_Subscription(xlnt::worksheet& ws, unordered_map<int, Su
 }
 
 
-
 void SystemManager::Load_All_Data() {
     xlnt::workbook& wb = this->db->getGym_Padel_DB("Gym_Padel_DB.xlsx");
 
     this->traineeList = this->Load_Trainee(this->db->GetTrainee("Trainees"));
-	this->maxTraineeID = this->GetMaxTraineeID(this->db->GetTrainee("Trainees"));
+    cout << 1;
+    this->maxTraineeID = this->GetMaxTraineeID(this->db->GetTrainee("Trainees"));
+	cout << 2;
     this->coatchList = this->Load_Coatch(this->db->GetCoach("Coatch"));
+	cout << 3;
     this->receptionistList = this->Load_Receptionist(this->db->GetReceptionist("Receptionist"));
+	cout << 4;
     this->managerList = this->Load_Manager(this->db->GetManager("Manager"));
+	cout << 5;
     this->classList = this->Load_GymClass(this->db->GetGymClass("GymClass"));
+	cout << 6;
     this->hallList = this->Load_Hall(this->db->GetHallSystem("HallSystem"));
+	cout << 7;
     this->workoutPlanList = this->Load_WorkoutPlan(this->db->GetWorkoutPlan("WorkoutPlan"));
+	cout << 8;
     this->CourtList = this->Load_Court(this->db->GetCourt("Court"));
+	cout << 9;
     this->BookingList = this->Load_Booking(this->db->GetBooking("Booking"));
+	cout << 10;
     this->SubscriptionList = this->Load_Subscription(this->db->GetSubscription("Subscription"));
+	cout << 11;
     cout << "LOADED \n";
 }
 
 void SystemManager::Save_All_Data() {
-
-    // Update worksheets in existing workbook
+	cout << "SAVING \n";
+     //Update worksheets in existing workbook
     this->Save_Trainee(this->db->GetTrainee("Trainees"), this->traineeList);
+    cout << 1;
     this->Save_Coatch(this->db->GetCoach("Coatch"), this->coatchList);
+	cout << 2;
     this->Save_Receptionist(this->db->GetReceptionist("Receptionist"), this->receptionistList);
+	cout << 3;
     this->Save_Manager(this->db->GetManager("Manager"), this->managerList);
+	cout << 4;
     this->Save_GymClass(this->db->GetGymClass("GymClass"), this->classList);
+	cout << 5;
     this->Save_Hall(this->db->GetHallSystem("HallSystem"), this->hallList);
+	cout << 6;
     this->Save_WorkoutPlan(this->db->GetWorkoutPlan("WorkoutPlan"), this->workoutPlanList);
+	cout << 7;
     this->Save_Court(this->db->GetCourt("Court"), this->CourtList);
+	cout << 8;
     this->Save_Booking(this->db->GetBooking("Booking"), this->BookingList);
+	cout << 9;
     this->Save_Subscription(this->db->GetSubscription("Subscription"), this->SubscriptionList);
-
-    // Save once at the end
-    this->db->SaveGym_Padel_DB("Gym_Padel_DB.xlsx");
-
+	this->db->SaveGym_Padel_DB("Gym_Padel_DB.xlsx");
     cout << "SAVED \n";
 }

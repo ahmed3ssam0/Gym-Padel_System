@@ -21,7 +21,7 @@ class SystemManager
 	xlnt::workbook GymWB = db->getGym_Padel_DB("Gym_Padel_DB.xlsx");
 	xlnt::worksheet ManagerWS = db->GetManager("Manager");
 	xlnt::worksheet TraineeWS = db->GetTrainee("Trainee");
-	xlnt::worksheet CoatchWS = db->GetCoach("Coatch");
+	xlnt::worksheet CoatchWS = db->GetCoach("Coach");
 	xlnt::worksheet ClassWS = db->GetGymClass("GymClass");
 	xlnt::worksheet HallSystemWS = db->GetHallSystem("HallSystem");
 	xlnt::worksheet WorkoutPlanWS = db->GetWorkoutPlan("WorkoutPlan");
