@@ -14,7 +14,7 @@ namespace gymproject {
 	/// <summary>
 	/// Summary for RenewSubscription
 	/// </summary>
-	public ref class RenewSubscription : public System::Windows::Forms::Form
+	public ref class RenewSubscription : public System::Windows::Forms::UserControl
 	{
 		Trainee* trainee;
 	public:
@@ -22,8 +22,8 @@ namespace gymproject {
 		{
 			InitializeComponent();
 			this->trainee = trainee;
-			this->WindowState = FormWindowState::Maximized;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			/*this->WindowState = FormWindowState::Maximized;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;*/
 		}
 
 	protected:
@@ -32,7 +32,7 @@ namespace gymproject {
 				Application::Exit(); // Cleanly closes the application
 				return true;         // Block further processing of the key
 			}
-			return Form::ProcessCmdKey(msg, keyData);
+			return UserControl::ProcessCmdKey(msg, keyData);
 		}
 		/// <summary>
 		/// Clean up any resources being used.
@@ -147,11 +147,11 @@ namespace gymproject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1461, 892);
 			this->Controls->Add(this->panel1);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			//this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"RenewSubscription";
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			//this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"RenewSubscription";
-			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			//this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			this->ResumeLayout(false);

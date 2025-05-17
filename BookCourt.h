@@ -18,7 +18,7 @@ namespace gymproject {
 	using namespace System::Drawing;
 
 	
-	public ref class ava_court : public System::Windows::Forms::Form
+	public ref class ava_court : public System::Windows::Forms::UserControl
 	{
 		Padel* padel;
 		Trainee* trainee;

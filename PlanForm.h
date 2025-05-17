@@ -41,11 +41,13 @@ namespace gymproject {
                 delete components;
         }
     private: System::Windows::Forms::TextBox^ txtSession;
-    private: System::Windows::Forms::TextBox^ txtWorkoutPlan;
+
     private: System::Windows::Forms::Button^ btnAssignWorkout;
     private: System::Windows::Forms::DataGridView^ workoutPlanDataGridView;
-    private: System::Windows::Forms::DataGridViewTextBoxColumn^ Session;
     private: System::Windows::Forms::DataGridViewTextBoxColumn^ Workout;
+    private: System::Windows::Forms::Label^ label1;
+
+
     protected:
 
     protected:
@@ -67,27 +69,19 @@ namespace gymproject {
         void InitializeComponent(void)
         {
             this->txtSession = (gcnew System::Windows::Forms::TextBox());
-            this->txtWorkoutPlan = (gcnew System::Windows::Forms::TextBox());
             this->btnAssignWorkout = (gcnew System::Windows::Forms::Button());
             this->workoutPlanDataGridView = (gcnew System::Windows::Forms::DataGridView());
-            this->Session = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
             this->Workout = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+            this->label1 = (gcnew System::Windows::Forms::Label());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->workoutPlanDataGridView))->BeginInit();
             this->SuspendLayout();
             // 
             // txtSession
             // 
-            this->txtSession->Location = System::Drawing::Point(296, 284);
+            this->txtSession->Location = System::Drawing::Point(303, 315);
             this->txtSession->Name = L"txtSession";
             this->txtSession->Size = System::Drawing::Size(259, 20);
             this->txtSession->TabIndex = 0;
-            // 
-            // txtWorkoutPlan
-            // 
-            this->txtWorkoutPlan->Location = System::Drawing::Point(296, 326);
-            this->txtWorkoutPlan->Name = L"txtWorkoutPlan";
-            this->txtWorkoutPlan->Size = System::Drawing::Size(259, 20);
-            this->txtWorkoutPlan->TabIndex = 1;
             // 
             // btnAssignWorkout
             // 
@@ -105,37 +99,36 @@ namespace gymproject {
             this->workoutPlanDataGridView->AllowUserToDeleteRows = false;
             this->workoutPlanDataGridView->AllowUserToResizeRows = false;
             this->workoutPlanDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-            this->workoutPlanDataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-                this->Session,
-                    this->Workout
-            });
+            this->workoutPlanDataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Workout });
             this->workoutPlanDataGridView->Location = System::Drawing::Point(111, 25);
             this->workoutPlanDataGridView->Name = L"workoutPlanDataGridView";
             this->workoutPlanDataGridView->Size = System::Drawing::Size(608, 207);
             this->workoutPlanDataGridView->TabIndex = 3;
             // 
-            // Session
-            // 
-            this->Session->HeaderText = L"Session";
-            this->Session->Name = L"Session";
-            this->Session->ReadOnly = true;
-            this->Session->Width = 200;
-            // 
             // Workout
             // 
+            this->Workout->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
             this->Workout->HeaderText = L"Workout";
             this->Workout->Name = L"Workout";
             this->Workout->ReadOnly = true;
-            this->Workout->Width = 200;
+            // 
+            // label1
+            // 
+            this->label1->AutoSize = true;
+            this->label1->Location = System::Drawing::Point(221, 318);
+            this->label1->Name = L"label1";
+            this->label1->Size = System::Drawing::Size(76, 13);
+            this->label1->TabIndex = 4;
+            this->label1->Text = L"Seesion Name";
             // 
             // PlanForm
             // 
-            this->ClientSize = System::Drawing::Size(849, 523);
+            this->Controls->Add(this->label1);
             this->Controls->Add(this->workoutPlanDataGridView);
             this->Controls->Add(this->btnAssignWorkout);
-            this->Controls->Add(this->txtWorkoutPlan);
             this->Controls->Add(this->txtSession);
             this->Name = L"PlanForm";
+            this->Size = System::Drawing::Size(849, 523);
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->workoutPlanDataGridView))->EndInit();
             this->ResumeLayout(false);
             this->PerformLayout();
@@ -148,31 +141,27 @@ namespace gymproject {
             if (currentCoach == nullptr) return;
 
             workoutPlanDataGridView->Rows->Clear();
-            auto& plans = currentCoach->getWorkoutPlans();
+            auto& plans = currentCoach->getCoatchWorkoutPlans();
             for (auto& p : plans)
             {
-                String^ sName = gcnew String(p.first.c_str());
-                String^ plan = gcnew String(p.second.c_str());
-                workoutPlanDataGridView->Rows->Add(sName, plan);
+                String^ sName = gcnew String(p.getName().c_str());
+                workoutPlanDataGridView->Rows->Add(sName);
             }
         }
     private: System::Void btnAssignWorkout_Click_1(System::Object^ sender, System::EventArgs^ e) {
         String^ session = txtSession->Text->Trim();
-        String^ workout = txtWorkoutPlan->Text->Trim();
 
-        if (session != "" && workout != "")
+        if (session != "")
         {
-            workoutPlanDataGridView->Rows->Add(session, workout);
+            workoutPlanDataGridView->Rows->Add(session);
 
             if (currentCoach != nullptr)
             {
                 std::string stdSession = msclr::interop::marshal_as<std::string>(session);
-                std::string stdWorkout = msclr::interop::marshal_as<std::string>(workout);
-                currentCoach->assignWorkoutPlan(stdSession, stdWorkout);
+                currentCoach->assignWorkoutPlan(stdSession);
             }
 
             txtSession->Clear();
-            txtWorkoutPlan->Clear();
         }
         else
         {

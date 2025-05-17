@@ -13,7 +13,7 @@ private:
 	string password;
 	float salary;
 	list<GymClass> classAssignments;
-	unordered_map<string, string> workoutPlans;
+	list<WorkoutPlan> CoatchWorkoutPlans;
 public:
 	//constructor
 	Coatch();
@@ -23,16 +23,16 @@ public:
 	void setid(int id);
 	void setpassword(string password);
 	void setClassAssignments(list<GymClass> classAssignments);
-	void setWorkoutPlans(unordered_map<string, string> workoutPlans);
 	void setSalary(float salary);
+	void setCoatchWorkoutPlans(list<WorkoutPlan> CoatchWorkoutPlans);
 
 	//getter
 	string getname()const;
 	string getid();
 	string getpassword();
 	list<GymClass> getClassAssignments();
-	unordered_map<string, string> getWorkoutPlans();
 	float getSalary();
+	list<WorkoutPlan> getCoatchWorkoutPlans();
 	
 	// Update 
 	void updateCoachInfo(string newname, string newpassword);
@@ -41,9 +41,9 @@ public:
 	//add
 	void addClass(GymClass gymClass);
 	//remove
-	void removeClass( string className);
+	bool removeClass( string className);
 	//assign workout plan
-	void assignWorkoutPlan(string session, string workout);
+	void assignWorkoutPlan(string className);
 	//display
 	void displayClasses();
 };

@@ -345,7 +345,6 @@ namespace gymproject {
 			this->cellEmail->Name = L"cellEmail";
 			this->cellEmail->Size = System::Drawing::Size(344, 20);
 			this->cellEmail->TabIndex = 4;
-			this->cellEmail->Text = L"Enter Your  Email";
 			// 
 			// label2
 			// 
@@ -362,7 +361,6 @@ namespace gymproject {
 			this->cellPhoneNum->Name = L"cellPhoneNum";
 			this->cellPhoneNum->Size = System::Drawing::Size(344, 20);
 			this->cellPhoneNum->TabIndex = 2;
-			this->cellPhoneNum->Text = L"Enter Your Phone Number";
 			// 
 			// label1
 			// 
@@ -379,7 +377,6 @@ namespace gymproject {
 			this->cellName->Name = L"cellName";
 			this->cellName->Size = System::Drawing::Size(344, 20);
 			this->cellName->TabIndex = 0;
-			this->cellName->Text = L"Enter Your Name";
 			// 
 			// contextMenuStrip1
 			// 

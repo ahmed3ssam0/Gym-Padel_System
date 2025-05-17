@@ -27,6 +27,25 @@ namespace gymproject {
 	private: Trainee* trainee;
 	private: Padel* padel;
 	public:
+		Home(Gym* gym, Trainee* trainee, Padel* padel)
+		{
+			InitializeComponent();
+			this->DoubleBuffered = true;
+			this->gym = gym;
+			this->trainee = trainee;
+			this->padel = padel;
+			this->WindowState = FormWindowState::Maximized;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			/*if (cachedBackground == nullptr)
+				cachedBackground = System::Drawing::Image::FromFile("C:\\Users\\Islam\\Downloads\\6725081-Photoroom.png");
+
+			this->BackgroundImage = cachedBackground;
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;*/
+			tabPage1->Controls->Add(gcnew JoinClass(gym, trainee));
+			tabPage2->Controls->Add(gcnew RenewSubscription(trainee));
+			tabPage3->Controls->Add(gcnew ava_court(padel, trainee));
+
+		}
 		Home(Gym* gym, Trainee* trainee)
 		{
 			InitializeComponent();
@@ -35,14 +54,13 @@ namespace gymproject {
 			this->trainee = trainee;
 			this->WindowState = FormWindowState::Maximized;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
-			if (cachedBackground == nullptr)
+			/*if (cachedBackground == nullptr)
 				cachedBackground = System::Drawing::Image::FromFile("C:\\Users\\Islam\\Downloads\\6725081-Photoroom.png");
 
 			this->BackgroundImage = cachedBackground;
-			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;*/
 			tabPage1->Controls->Add(gcnew JoinClass(gym, trainee));
 			tabPage2->Controls->Add(gcnew RenewSubscription(trainee));
-			tabPage3->Controls->Add(gcnew ava_court(padel, trainee));
 
 		}
 		Home(Gym* gym)

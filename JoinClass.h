@@ -17,7 +17,7 @@ namespace gymproject {
 	/// <summary>
 	/// Summary for JoinClass
 	/// </summary>
-	public ref class JoinClass : public System::Windows::Forms::Form
+	public ref class JoinClass : public System::Windows::Forms::UserControl
 	{
 	private: Gym* gym;
 	private: Trainee* trainee;
@@ -43,8 +43,8 @@ namespace gymproject {
 				this->dataGridView1->Rows->Add(gcnew String(det.c_str()));
 			}
 
-			this->WindowState = FormWindowState::Maximized;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			/*this->WindowState = FormWindowState::Maximized;
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;*/
 			//
 			//TODO: Add the constructor code here
 			//
@@ -56,7 +56,7 @@ namespace gymproject {
 				Application::Exit(); // Cleanly closes the application
 				return true;         // Block further processing of the key
 			}
-			return Form::ProcessCmdKey(msg, keyData);
+			return UserControl::ProcessCmdKey(msg, keyData);
 		}
 		/// <summary>
 		/// Clean up any resources being used.
@@ -207,11 +207,11 @@ namespace gymproject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1448, 888);
 			this->Controls->Add(this->splitContainer1);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
+			//this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"JoinClass";
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			//this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"JoinClass";
-			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			//this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);

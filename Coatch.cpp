@@ -21,11 +21,11 @@ void Coatch::setpassword(string password) {
 void Coatch::setClassAssignments(list<GymClass> classAssignments) {
     this->classAssignments = classAssignments;
 }
-void Coatch::setWorkoutPlans(unordered_map<string, string> workoutPlans) {
-	this->workoutPlans = workoutPlans;
-}
 void Coatch::setSalary(float salary) {
 	this->salary = salary;
+}
+void Coatch::setCoatchWorkoutPlans(list<WorkoutPlan> CoatchWorkoutPlans) {
+	this->CoatchWorkoutPlans = CoatchWorkoutPlans;
 }
 
 //getter
@@ -41,11 +41,11 @@ string Coatch::getpassword() {
 list<GymClass>Coatch::getClassAssignments() {
     return classAssignments;
 }
-unordered_map<string, string> Coatch::getWorkoutPlans() {
-	return workoutPlans;
-}
 float Coatch::getSalary() {
 	return salary;
+}
+list<WorkoutPlan> Coatch::getCoatchWorkoutPlans() {
+	return CoatchWorkoutPlans;
 }
 
 //update
@@ -63,19 +63,16 @@ void Coatch::addClass(GymClass gymClass) {
     cout << "Class added successfully.\n";
 }
 //remove class
-void Coatch::removeClass(string className) {
+bool Coatch::removeClass(string className) {
     for (auto it = classAssignments.begin(); it != classAssignments.end(); ++it) {
         if (it->getName() == className) {
             classAssignments.erase(it);
             cout << "Class removed successfully.\n";
-            return;
+            return true;
         }
     }
     cout << "Class not found.\n";
-}
-//assign workout plan
-void Coatch::assignWorkoutPlan(string session, string workout) {
-	workoutPlans[session] = workout;
+	return false;
 }
 //displayClasses
 void Coatch::displayClasses() {
@@ -86,3 +83,17 @@ void Coatch::displayClasses() {
 }
 
 
+//assign workout plan
+void Coatch::assignWorkoutPlan(string className) {
+	for (auto& gymClass : classAssignments) {
+		if (gymClass.getName() == className) {
+			auto& Plans = gymClass.getClassWorkoutPlans();
+			for (auto& p : Plans) {
+				CoatchWorkoutPlans.push_back(p);
+			}
+			cout << "Workout plan assigned successfully.\n";
+			return;
+		}
+	}
+	cout << "Class not found.\n";
+}

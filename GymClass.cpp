@@ -26,6 +26,7 @@ void GymClass::setTimePeriod(float timePeriod) { this->timePeriod = timePeriod; 
 void GymClass::setNumberOfSessions(int numberOfSessions) { this->numberOfSessions = numberOfSessions; }
 void GymClass::setType(bool type) { this->type = type; }
 void GymClass::setClassCoach(string coachId) { this->coachId = coachId; }
+void GymClass::setClassWorkoutPlans(list<WorkoutPlan> ClassWorkoutPlans) { this->ClassWorkoutPlans = ClassWorkoutPlans; }
 
 string GymClass::getName() { return name; }
 int GymClass::getCapacity() { return capacity; }
@@ -35,6 +36,7 @@ float GymClass::getTimePeriod() { return timePeriod; }
 int GymClass::getNumberOfSessions() { return numberOfSessions; }
 bool GymClass::getType() { return type; }
 string GymClass::getClassCoach() { return coachId; }
+list<WorkoutPlan> GymClass::getClassWorkoutPlans() { return ClassWorkoutPlans; }
 
 void GymClass::addTraineeToClass(Trainee t) {
 	if (ClassTrainees.size() < capacity) {

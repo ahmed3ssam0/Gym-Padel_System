@@ -131,11 +131,15 @@
     <ClCompile Include="Login1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="ManagerTabs.cpp" />
     <ClCompile Include="Padel.cpp" />
     <ClCompile Include="Payment.cpp" />
     <ClCompile Include="PlanForm.cpp" />
     <ClCompile Include="Receptionist.cpp" />
+    <ClCompile Include="ReceptionistForm.cpp" />
     <ClCompile Include="Register.cpp" />
+    <ClCompile Include="RemovePlan.cpp" />
+    <ClCompile Include="RemoveSession.cpp" />
     <ClCompile Include="RenewSubscription.cpp" />
     <ClCompile Include="Subscription.cpp" />
     <ClCompile Include="System.cpp" />
@@ -173,6 +177,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="ManagerTabs.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Padel.h" />
     <ClInclude Include="Payment.h">
       <FileType>CppForm</FileType>
@@ -181,7 +188,16 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Receptionist.h" />
+    <ClInclude Include="ReceptionistForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Register.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="RemovePlan.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="RemoveSession.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="RenewSubscription.h">
@@ -223,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login1.resx">
       <DependentUpon>Login1.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerTabs.resx">
+      <DependentUpon>ManagerTabs.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payment.resx">
       <DependentUpon>Payment.h</DependentUpon>

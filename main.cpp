@@ -26,7 +26,7 @@ int main(cli::array<System::String^>^ args) {
 	cout << "Starting program...\n";
 
 
-	/*Trainee trainee = Trainee("ahmed", "01221292988", "male", "18-2-2006", "a@a.com", "123456789", true);
+	Trainee trainee = Trainee("ahmed", "01221292988", "male", "18-2-2006", "a@a.com", "123456789", true);
 	Subscription subscription = Subscription("25-4-2025", 1);
 	subscription.setEndDate("25-4-2026");
 	trainee.subscribe(subscription);
@@ -58,7 +58,7 @@ int main(cli::array<System::String^>^ args) {
 
 	Coatch coatch = Coatch("ahmed", "111", "123456789", 12345);
 	coatch.addClass(GymClass("Yoga", 20, "10:00", 1, 5, false));
-	coatch.assignWorkoutPlan("Yoga", "Yoga Plan");*/
+	coatch.assignWorkoutPlan("Yoga");
 
 	/*Booking booking1 = Booking(trainee, court, "25-4-2025", "11:00", 2);
 	booking1.displayBookingInfo();
@@ -70,10 +70,11 @@ int main(cli::array<System::String^>^ args) {
 	if (padel.removeBooking(booking1)) cout << "Booking removed!" << endl;
 	else cout << "Booking failed to remove!" << endl;*/
 	SystemManager sys;
-	sys.Load_All_Data();
+	//sys.Load_All_Data();
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	Application::Run(gcnew Register(&sys));
-	sys.Save_All_Data();
+	//Application::Run(gcnew Register(&sys));
+	Application::Run(gcnew Home(&gym, &trainee, &padel));
+	//sys.Save_All_Data();
     return 0;
 }

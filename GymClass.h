@@ -34,6 +34,7 @@ class GymClass
 	void setNumberOfSessions(int numberOfSessions);
 	void setType(bool type);
 	void setClassCoach(string coachId);
+	void setClassWorkoutPlans(list<WorkoutPlan> ClassWorkoutPlans);
 
 	string getName();
 	int getCapacity();
@@ -43,6 +44,7 @@ class GymClass
 	int getNumberOfSessions();
 	bool getType();
 	string getClassCoach();
+	list<WorkoutPlan> getClassWorkoutPlans();
 
 	void addTraineeToClass(Trainee t);
 	void removeTraineeFromClass(Trainee t);
