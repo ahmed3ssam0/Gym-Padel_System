@@ -22,13 +22,9 @@ namespace gymproject {
 		Coatch* currentCoach;
 
 	public:
-		Home2(void)
+		Home2(Coatch* coach)
 		{
-			InitializeComponent();
-			loadSessions();
-		}
-		Home2(Coatch* coach) : currentCoach(coach)
-		{
+			currentCoach = coach;
 			InitializeComponent();
 			loadSessions();
 		}

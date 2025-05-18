@@ -14,6 +14,9 @@
 #include "Gym.h"
 #include "System.h"
 #include "CoatchForm.h"
+#include "Padel.h"
+#include "ReceptionistForm.h"
+#include "ManagerTabs.h"
 
 
 namespace gymproject {
@@ -35,14 +38,12 @@ namespace gymproject {
 			unordered_map<string, Receptionist>* receptionistList;
 			unordered_map<string, Manager>* manager;
 			SystemManager* sys;
-			Gym* gym;
 			Padel* padel;
 		public:
-			Login1(SystemManager* sys, Gym* gym, Padel* padel)
+			Login1(SystemManager* sys, Padel* padel)
 			{
 				InitializeComponent();
 				this->sys = sys;
-				this->gym = gym;
 				this->padel = padel;
 				traineeList = &(sys->traineeList);
 				coatchList = &(sys->coatchList);
@@ -226,8 +227,7 @@ namespace gymproject {
 			if (isNumeric && ValidateTraineeLogin(numericId, password)) {
 				MessageBox::Show("Trainee login successful!");
 				Trainee* trainee = &(traineeList->at(numericId));
-				Gym* gym = new Gym();
-				Home^ nextForm = gcnew Home(gym, trainee);
+				Home^ nextForm = gcnew Home(trainee, padel, sys);
 				nextForm->StartPosition = FormStartPosition::Manual;
 				nextForm->Location = this->Location;
 				nextForm->Size = this->Size;
@@ -250,9 +250,27 @@ namespace gymproject {
 			}
 			else if (ValidateReceptionistLogin(id, password)) {
 				MessageBox::Show("Receptionist login successful!");
+				std::string recId = msclr::interop::marshal_as<std::string>(id);
+				Receptionist* receptionist = &(receptionistList->at(recId));
+				Receptionist_Form^ nextForm = gcnew Receptionist_Form(sys, receptionist);
+				nextForm->Location = this->Location;
+				nextForm->Size = this->Size;
+				nextForm->BackgroundImage = this->BackgroundImage;
+				nextForm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+				nextForm->Show();
+				this->Hide();
 			}
 			else if (ValidateManagerLogin(id, password)) {
 				MessageBox::Show("Manager login successful!");
+				std::string manId = msclr::interop::marshal_as<std::string>(id);
+				Manager* man = &(manager->at(manId));
+				ManagerForm^ nextForm = gcnew ManagerForm(sys, man);
+				nextForm->Location = this->Location;
+				nextForm->Size = this->Size;
+				nextForm->BackgroundImage = this->BackgroundImage;
+				nextForm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+				nextForm->Show();
+				this->Hide();
 			}
 			else {
 				MessageBox::Show("Invalid ID or password!", "Login Failed", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -301,7 +319,7 @@ namespace gymproject {
 		}
 
 		private: System::Void signup_Click(System::Object^ sender, System::EventArgs^ e) {
-			Register^ nextForm = gcnew Register(sys, gym, padel);
+			Register^ nextForm = gcnew Register(sys, padel);
 			nextForm->StartPosition = FormStartPosition::Manual;
 			nextForm->Location = this->Location;
 			nextForm->Size = this->Size;

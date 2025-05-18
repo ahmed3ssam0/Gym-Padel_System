@@ -13,74 +13,26 @@
 #include "System.h"
 #include "Register.h"
 #include "ManagerTabs.h"
+#include "ReceptionistForm.h"
+#include "Login1.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace std;
 using namespace gymproject;
 
-[STAThread]
 int main(cli::array<System::String^>^ args) {
 	AllocConsole();
 	freopen(".log.txt", "w", stdout);
 	freopen(".log.txt", "a", stderr);
 	cout << "Starting program...\n";
-
-
-	Trainee trainee = Trainee("ahmed", "01221292988", "male", "18-2-2006", "a@a.com", "123456789", true);
-	Subscription subscription = Subscription("25-4-2025", 1);
-	subscription.setEndDate("25-4-2026");
-	trainee.subscribe(subscription);
-	trainee.renew_subscription(6);
-	Padel padel = Padel();
-	Court court = Court("court1", 500, "loc1", true);
-	court.displayCourtInfo();
-	padel.addCourt(court);
-
-	Booking booking = Booking(trainee, court, "25-4-2025", "10:00", 2);
-	booking.displayBookingInfo();
-	if (padel.bookCourt(booking)) cout << "Booking successful!" << endl;
-	else cout << "Booking failed!" << endl;
-
-	vector<string> bookings = padel.padel_to_string_bookings();
-	for (const auto& booking : bookings) {
-		cout << booking << endl;
-	}
-
-	vector<string> courts = padel.padel_to_string_courts();
-	for (const auto& court : courts) {
-		cout << court << endl;
-	}
-
-	Gym gym = Gym();
-	GymClass gymClass = GymClass("Yoga", 20, "10:00", 1, 5, false);
-	gymClass.addWorkoutPlan(WorkoutPlan("Yoga", 20, "Yoga", "Low", 100));
-	gym.addGymClass(gymClass);
-	gym.addGymClass(GymClass("Upper Body", 20, "13:00", 2, 10, false));
-	gym.addGymClass(GymClass("Lower Body", 20, "13:00", 2, 10, false));
-
-	Coatch coatch = Coatch("ahmed", "111", "123456789", 12345);
-	coatch.addClass(gymClass);
-	gymClass.addTraineeToClass(trainee);
-	//coatch.assignWorkoutPlan("Yoga");
-
-	/*Booking booking1 = Booking(trainee, court, "25-4-2025", "11:00", 2);
-	booking1.displayBookingInfo();
-	if (padel.bookCourt(booking1)) cout << "Booking successful!" << endl;
-	else cout << "Booking failed!" << endl;
-
-	if (padel.removeBooking(booking)) cout << "Booking removed!" << endl;
-	else cout << "Booking failed to remove!" << endl;
-	if (padel.removeBooking(booking1)) cout << "Booking removed!" << endl;
-	else cout << "Booking failed to remove!" << endl;*/
+	
 	SystemManager sys;
-	//sys.Load_All_Data();
+	Padel padel;
+	sys.Load_All_Data();
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	//Application::Run(gcnew Register(&sys));
-	//Application::Run(gcnew Home(&gym, &trainee, &padel, &sys));
-	Application::Run(gcnew CoatchForm(&coatch));
-	//Application::Run(gcnew ManagerForm());
-	//sys.Save_All_Data();
+	Application::Run(gcnew Login1(&sys, &padel));
+	sys.Save_All_Data();
     return 0;
 }

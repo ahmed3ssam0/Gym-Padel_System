@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Gym.h"
+#include "System.h"
 #include <iomanip>
 #include <sstream>
 #include <msclr/marshal_cppstd.h>
@@ -19,16 +19,16 @@ namespace gymproject {
 	/// </summary>
 	public ref class JoinClass : public System::Windows::Forms::UserControl
 	{
-	private: Gym* gym;
+	private: SystemManager* sys;
 	private: Trainee* trainee;
 	public:
-		JoinClass(Gym* gym, Trainee* trainee)
+		JoinClass(SystemManager* sys, Trainee* trainee)
 		{
 			InitializeComponent();
-			this->gym = gym;
+			this->sys = sys;
 			this->trainee = trainee;
 
-			unordered_map<string, GymClass> gymClasses = gym->getGymClasses();
+			unordered_map<string, GymClass> gymClasses = sys->classList;
 
 			for (auto& g : gymClasses) {
 				vector<string> classDetails = g.second.class_to_string();
@@ -210,7 +210,7 @@ namespace gymproject {
 #pragma endregion
 	private: System::Void JoinClass::button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		string className = msclr::interop::marshal_as<string>(comboBox1->SelectedItem->ToString());
-		unordered_map<string, GymClass> gymClasses = gym->getGymClasses();
+		unordered_map<string, GymClass> gymClasses = sys->classList;
 		auto it = gymClasses.find(className);
 		if (it != gymClasses.end()) {
 			it->second.addTraineeToClass(*this->trainee);

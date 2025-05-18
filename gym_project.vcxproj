@@ -77,7 +77,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>E:\ahmed\vcpkg-master\packages\xlnt_x64-windows\include\xlnt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
@@ -133,7 +133,6 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="ManagerTabs.cpp" />
     <ClCompile Include="Padel.cpp" />
-    <ClCompile Include="Payment.cpp" />
     <ClCompile Include="PlanForm.cpp" />
     <ClCompile Include="Receptionist.cpp" />
     <ClCompile Include="ReceptionistForm.cpp" />
@@ -181,9 +180,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Padel.h" />
-    <ClInclude Include="Payment.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="PlanForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -242,9 +238,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerTabs.resx">
       <DependentUpon>ManagerTabs.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Payment.resx">
-      <DependentUpon>Payment.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlanForm.resx">
       <DependentUpon>PlanForm.h</DependentUpon>

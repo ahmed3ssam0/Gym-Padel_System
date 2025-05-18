@@ -20,7 +20,6 @@ namespace gymproject {
 	public ref class Home : public System::Windows::Forms::Form
 	{
 	static System::Drawing::Image^ cachedBackground = nullptr;
-	private: Gym* gym;
 	private: System::Windows::Forms::TabControl^ tabControl1;
 	private: System::Windows::Forms::TabPage^ tabPage1;
 	private: System::Windows::Forms::TabPage^ tabPage2;
@@ -31,11 +30,10 @@ namespace gymproject {
 	private: Padel* padel;
 	private: SystemManager* sys;
 	public:
-		Home(Gym* gym, Trainee* trainee, Padel* padel, SystemManager* sys)
+		Home(Trainee* trainee, Padel* padel, SystemManager* sys)
 		{
 			InitializeComponent();
 			this->DoubleBuffered = true;
-			this->gym = gym;
 			this->trainee = trainee;
 			this->padel = padel;
 			this->sys = sys;
@@ -46,43 +44,11 @@ namespace gymproject {
 
 			this->BackgroundImage = cachedBackground;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;*/
-			tabPage1->Controls->Add(gcnew JoinClass(gym, trainee));
+			tabPage1->Controls->Add(gcnew JoinClass(sys, trainee));
 			tabPage2->Controls->Add(gcnew RenewSubscription(trainee));
-			tabPage3->Controls->Add(gcnew ava_court(padel, trainee));
+			tabPage3->Controls->Add(gcnew ava_court(sys, trainee, padel));
 			tabPage4->Controls->Add(gcnew TraineeHistory(trainee));
 			this->label1->Text = L"Welcome Trainee " + gcnew System::String(trainee->getName().c_str());
-		}
-		Home(Gym* gym, Trainee* trainee)
-		{
-			InitializeComponent();
-			this->DoubleBuffered = true;
-			this->gym = gym;
-			this->trainee = trainee;
-			this->WindowState = FormWindowState::Maximized;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
-			/*if (cachedBackground == nullptr)
-				cachedBackground = System::Drawing::Image::FromFile("C:\\Users\\Islam\\Downloads\\6725081-Photoroom.png");
-
-			this->BackgroundImage = cachedBackground;
-			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;*/
-			tabPage1->Controls->Add(gcnew JoinClass(gym, trainee));
-			tabPage2->Controls->Add(gcnew RenewSubscription(trainee));
-			tabPage4->Controls->Add(gcnew TraineeHistory(trainee));
-			this->label1->Text = L"Welcome Trainee " + gcnew System::String(trainee->getName().c_str());
-		}
-		Home(Gym* gym)
-		{
-			InitializeComponent();
-			this->DoubleBuffered = true;
-			this->gym = gym;
-			this->WindowState = FormWindowState::Maximized;
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
-			if (cachedBackground == nullptr)
-				cachedBackground = System::Drawing::Image::FromFile("C:\\Users\\Islam\\Downloads\\6725081-Photoroom.png");
-
-			this->BackgroundImage = cachedBackground;
-			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-
 		}
 		Home(void)
 		{

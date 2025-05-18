@@ -43,7 +43,7 @@ class Trainee {
 	void setSubscription(Subscription subscription);
 	void setWorkoutHistory(list<WorkoutPlan> workout_history);
 
-    void subscribe(Subscription subscription);
+    float subscribe(Subscription subscription);
     void renew_subscription(int period);
     void view_workout_history();
     void delete_subscription();

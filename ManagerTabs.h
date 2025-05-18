@@ -48,31 +48,48 @@ namespace gymproject {
         Button^ logOut;
 		Panel^ bottomPanel;
 
-		Manager* manager;
+        Panel^ centerPanelAddRec;
+        Panel^ centerPanelRemoveRec;
+        Panel^ centerPanelAddCoach;
+        Panel^ centerPanelRemoveCoach;
+
 		SystemManager* system;
+        Manager* man;
 
     public:
-        ManagerForm()
+        ManagerForm(SystemManager* system, Manager* man)
         {
-            this->Text = "Gym Manager Panel";
-            this->Size = Drawing::Size(500, 500);
+			this->system = system;
+            this->man = man;
 
+            // Make the window fullscreen
+            this->WindowState = FormWindowState::Maximized;
+            this->Text = "Gym Manager Panel";
+
+            // Top panel with welcome label
             topPanel = gcnew Panel();
-            bottomPanel = gcnew Panel();
+            topPanel->Height = 60;
+            topPanel->Dock = DockStyle::Top;
+            topPanel->BackColor = Color::LightSteelBlue;
 
             Label^ lblWelcome = gcnew Label();
-            lblWelcome->Text = "Welcome, Manager!";
-            lblWelcome->Font = gcnew Drawing::Font("Arial", 14, FontStyle::Bold);
+            lblWelcome->Text = "Welcome Manager " + gcnew String(man->getname().c_str());
+            lblWelcome->Font = gcnew Drawing::Font("Segoe UI", 20, FontStyle::Bold);
             lblWelcome->AutoSize = true;
-            lblWelcome->Location = Point(10, 10);
-
+            lblWelcome->Location = Point(20, 15);
             topPanel->Controls->Add(lblWelcome);
-            topPanel->Dock = DockStyle::Top;
-            topPanel->Height = 40;
+			topPanel->Controls->Add(logOut);
 
+            // Bottom panel to hold tab control
+            bottomPanel = gcnew Panel();
+            bottomPanel->Dock = DockStyle::Fill;
+
+            // Tab Control
             tabControl = gcnew TabControl();
             tabControl->Dock = DockStyle::Fill;
+            bottomPanel->Controls->Add(tabControl);
 
+            // Initialize all tabs
             InitAddReceptionistTab();
             InitRemoveReceptionistTab();
             InitAddCoachTab();
@@ -83,11 +100,11 @@ namespace gymproject {
             tabControl->TabPages->Add(tabAddCoach);
             tabControl->TabPages->Add(tabRemoveCoach);
 
-            bottomPanel->Controls->Add(tabControl);
-            bottomPanel->Dock = DockStyle::Fill;
-
+            // Add panels to form
             this->Controls->Add(bottomPanel);
             this->Controls->Add(topPanel);
+
+
         }
 
     private:
@@ -95,15 +112,22 @@ namespace gymproject {
         void InitAddReceptionistTab()
         {
             tabAddRec = gcnew TabPage("Add Receptionist");
-            Panel^ panel = gcnew Panel();
-            panel->Dock = DockStyle::Fill;
-            //panel->Size = Drawing::Size(500, 500);
-           /* panel->Location = Drawing::Point(
-                (tabAddRec->ClientSize.Width - panel->Width) / 2,
-                (tabAddRec->ClientSize.Height - panel->Height) / 2
-            );
-            panel->Anchor = AnchorStyles::None;*/
 
+            // Main container panel (fills the tab)
+            Panel^ mainPanel = gcnew Panel();
+            mainPanel->Dock = DockStyle::Fill;
+            tabAddRec->Controls->Add(mainPanel);
+
+            // Center panel (fixed size, centered manually)
+            centerPanelAddRec = gcnew Panel();
+            centerPanelAddRec->Size = Drawing::Size(600, 400);
+            mainPanel->Controls->Add(centerPanelAddRec);
+
+            // Center the panel after the tab is loaded
+            tabAddRec->Resize += gcnew EventHandler(this, &ManagerForm::OnResizeAddRecTab);
+            CenterPanelInTab(tabAddRec, centerPanelAddRec);
+
+            // --- Form Controls ---
             txtRecName = CreateTextBox(120, 20);
             txtRecID = CreateTextBox(120, 50);
             txtRecPass = CreateTextBox(120, 80);
@@ -116,61 +140,80 @@ namespace gymproject {
             dgvRec = gcnew DataGridView();
             dgvRec->Location = Point(10, 190);
             dgvRec->Size = Drawing::Size(440, 200);
-            dgvRec->ColumnCount = 2;
+            dgvRec->ColumnCount = 4;
             dgvRec->Columns[0]->Name = "Name";
             dgvRec->Columns[1]->Name = "ID";
+            dgvRec->Columns[2]->Name = "Password";
+            dgvRec->Columns[3]->Name = "Salary";
 
-            panel->Controls->Add(CreateLabel("Name:", 10, 20));
-            panel->Controls->Add(txtRecName);
-            panel->Controls->Add(CreateLabel("ID:", 10, 50));
-            panel->Controls->Add(txtRecID);
-            panel->Controls->Add(CreateLabel("Password:", 10, 80));
-            panel->Controls->Add(txtRecPass);
-            panel->Controls->Add(CreateLabel("Salary:", 10, 110));
-            panel->Controls->Add(txtRecSalary);
-            panel->Controls->Add(btnAddRec);
-            panel->Controls->Add(dgvRec);
+            centerPanelAddRec->Controls->Add(CreateLabel("Name:", 10, 20));
+            centerPanelAddRec->Controls->Add(txtRecName);
+            centerPanelAddRec->Controls->Add(CreateLabel("ID:", 10, 50));
+            centerPanelAddRec->Controls->Add(txtRecID);
+            centerPanelAddRec->Controls->Add(CreateLabel("Password:", 10, 80));
+            centerPanelAddRec->Controls->Add(txtRecPass);
+            centerPanelAddRec->Controls->Add(CreateLabel("Salary:", 10, 110));
+            centerPanelAddRec->Controls->Add(txtRecSalary);
+            centerPanelAddRec->Controls->Add(btnAddRec);
+            centerPanelAddRec->Controls->Add(dgvRec);
 
-            tabAddRec->Controls->Add(panel);
+            mainPanel->Controls->Add(centerPanelAddRec);
+
+            
         }
+
 
         void InitRemoveReceptionistTab()
         {
             tabRemoveRec = gcnew TabPage("Remove Receptionist");
-            Panel^ panel = gcnew Panel();
-            panel->Dock = DockStyle::Fill;
-            panel->Size = Drawing::Size(350, 300);
-            panel->Location = Drawing::Point(
-                (tabAddRec->ClientSize.Width - panel->Width) / 2,
-                (tabAddRec->ClientSize.Height - panel->Height) / 2
-            );
-            panel->Anchor = AnchorStyles::None;
 
+            // Main container panel (fills the tab)
+            Panel^ mainPanel = gcnew Panel();
+            mainPanel->Dock = DockStyle::Fill;
+            tabRemoveRec->Controls->Add(mainPanel);
+
+            // Center panel (fixed size, centered manually)
+            centerPanelRemoveRec = gcnew Panel();
+            centerPanelRemoveRec->Size = Drawing::Size(600, 400);
+            mainPanel->Controls->Add(centerPanelRemoveRec);
+
+            // Center the panel after the tab is loaded
+            tabRemoveRec->Resize += gcnew EventHandler(this, &ManagerForm::OnResizeRemoveRecTab);
+            CenterPanelInTab(tabRemoveRec, centerPanelRemoveRec);
+
+			// --- Form Controls ---
             txtRecRemoveName = CreateTextBox(200, 30);
             btnRemoveRec = gcnew Button();
             btnRemoveRec->Text = "Delete Receptionist by Name";
             btnRemoveRec->Location = Point(200, 70);
             btnRemoveRec->Click += gcnew EventHandler(this, &ManagerForm::RemoveReceptionist);
 
-            panel->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
-            panel->Controls->Add(txtRecRemoveName);
-            panel->Controls->Add(btnRemoveRec);
+            centerPanelRemoveRec->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
+            centerPanelRemoveRec->Controls->Add(txtRecRemoveName);
+            centerPanelRemoveRec->Controls->Add(btnRemoveRec);
 
-            tabRemoveRec->Controls->Add(panel);
+            mainPanel->Controls->Add(centerPanelRemoveRec);
         }
 
         void InitAddCoachTab()
         {
             tabAddCoach = gcnew TabPage("Add Coach");
-            Panel^ panel = gcnew Panel();
-            panel->Dock = DockStyle::Fill;
-            panel->Size = Drawing::Size(350, 300);
-            panel->Location = Drawing::Point(
-                (tabAddRec->ClientSize.Width - panel->Width) / 2,
-                (tabAddRec->ClientSize.Height - panel->Height) / 2
-            );
-            panel->Anchor = AnchorStyles::None;
 
+            // Main container panel (fills the tab)
+            Panel^ mainPanel = gcnew Panel();
+            mainPanel->Dock = DockStyle::Fill;
+            tabAddCoach->Controls->Add(mainPanel);
+
+            // Center panel (fixed size, centered manually)
+            centerPanelAddCoach = gcnew Panel();
+            centerPanelAddCoach->Size = Drawing::Size(600, 400);
+            mainPanel->Controls->Add(centerPanelAddCoach);
+
+            // Center the panel after the tab is loaded
+            tabAddCoach->Resize += gcnew EventHandler(this, &ManagerForm::OnResizeAddCoachTab);
+            CenterPanelInTab(tabAddCoach, centerPanelAddCoach);
+
+			// --- Form Controls ---
             txtCoachName = CreateTextBox(120, 20);
             txtCoachID = CreateTextBox(120, 50);
             txtCoachPass = CreateTextBox(120, 80);
@@ -183,54 +226,96 @@ namespace gymproject {
             dgvCoach = gcnew DataGridView();
             dgvCoach->Location = Point(10, 190);
             dgvCoach->Size = Drawing::Size(440, 200);
-            dgvCoach->ColumnCount = 2;
+            dgvCoach->ColumnCount = 4;
             dgvCoach->Columns[0]->Name = "Name";
             dgvCoach->Columns[1]->Name = "ID";
+			dgvCoach->Columns[2]->Name = "Password";
+			dgvCoach->Columns[3]->Name = "Salary";
 
-            panel->Controls->Add(CreateLabel("Name:", 10, 20));
-            panel->Controls->Add(txtCoachName);
-            panel->Controls->Add(CreateLabel("ID:", 10, 50));
-            panel->Controls->Add(txtCoachID);
-            panel->Controls->Add(CreateLabel("Password:", 10, 80));
-            panel->Controls->Add(txtCoachPass);
-            panel->Controls->Add(CreateLabel("Salary:", 10, 110));
-            panel->Controls->Add(txtCoachSalary);
-            panel->Controls->Add(btnAddCoach);
-            panel->Controls->Add(dgvCoach);
+            centerPanelAddCoach->Controls->Add(CreateLabel("Name:", 10, 20));
+            centerPanelAddCoach->Controls->Add(txtCoachName);
+            centerPanelAddCoach->Controls->Add(CreateLabel("ID:", 10, 50));
+            centerPanelAddCoach->Controls->Add(txtCoachID);
+            centerPanelAddCoach->Controls->Add(CreateLabel("Password:", 10, 80));
+            centerPanelAddCoach->Controls->Add(txtCoachPass);
+            centerPanelAddCoach->Controls->Add(CreateLabel("Salary:", 10, 110));
+            centerPanelAddCoach->Controls->Add(txtCoachSalary);
+            centerPanelAddCoach->Controls->Add(btnAddCoach);
+            centerPanelAddCoach->Controls->Add(dgvCoach);
 
-            tabAddCoach->Controls->Add(panel);
+            mainPanel->Controls->Add(centerPanelAddCoach);
         }
 
         void InitRemoveCoachTab()
         {
             tabRemoveCoach = gcnew TabPage("Remove Coach");
-            Panel^ panel = gcnew Panel();
-            panel->Dock = DockStyle::Fill;
-            panel->Size = Drawing::Size(350, 300);
-            panel->Location = Drawing::Point(
-                (tabAddRec->ClientSize.Width - panel->Width) / 2,
-                (tabAddRec->ClientSize.Height - panel->Height) / 2
-            );
-            panel->Anchor = AnchorStyles::None;
 
+            // Main container panel (fills the tab)
+            Panel^ mainPanel = gcnew Panel();
+            mainPanel->Dock = DockStyle::Fill;
+            tabRemoveCoach->Controls->Add(mainPanel);
+
+            // Center panel (fixed size, centered manually)
+            centerPanelRemoveCoach = gcnew Panel();
+            centerPanelRemoveCoach->Size = Drawing::Size(600, 400);
+            mainPanel->Controls->Add(centerPanelRemoveCoach);
+
+            // Center the panel after the tab is loaded
+            tabRemoveCoach->Resize += gcnew EventHandler(this, &ManagerForm::OnResizeRemoveCoachTab);
+            CenterPanelInTab(tabRemoveCoach, centerPanelRemoveCoach);
+
+            // --- Form Controls ---
             txtCoachRemoveName = CreateTextBox(200, 30);
             btnRemoveCoach = gcnew Button();
             btnRemoveCoach->Text = "Delete Coach by Name";
             btnRemoveCoach->Location = Point(200, 70);
             btnRemoveCoach->Click += gcnew EventHandler(this, &ManagerForm::RemoveCoach);
 
-            panel->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
-            panel->Controls->Add(txtCoachRemoveName);
-            panel->Controls->Add(btnRemoveCoach);
+            centerPanelRemoveCoach->Controls->Add(CreateLabel("Enter Name to Delete:", 10, 30));
+            centerPanelRemoveCoach->Controls->Add(txtCoachRemoveName);
+            centerPanelRemoveCoach->Controls->Add(btnRemoveCoach);
 
-            tabRemoveCoach->Controls->Add(panel);
+            mainPanel->Controls->Add(centerPanelRemoveCoach);
         }
+
+        void CenterPanelInTab(TabPage^ tab, Panel^ panel)
+        {
+            if (tab && panel)
+            {
+                panel->Location = Point(
+                    (tab->ClientSize.Width - panel->Width) / 2,
+                    (tab->ClientSize.Height - panel->Height) / 2
+                );
+            }
+        }
+
+        void OnResizeAddRecTab(Object^ sender, EventArgs^ e)
+        {
+            CenterPanelInTab(tabAddRec, centerPanelAddRec);
+        }
+
+        void OnResizeRemoveRecTab(Object^ sender, EventArgs^ e)
+        {
+            CenterPanelInTab(tabRemoveRec, centerPanelRemoveRec);
+        }
+
+        void OnResizeAddCoachTab(Object^ sender, EventArgs^ e)
+        {
+            CenterPanelInTab(tabAddCoach, centerPanelAddCoach);
+        }
+
+        void OnResizeRemoveCoachTab(Object^ sender, EventArgs^ e)
+        {
+            CenterPanelInTab(tabRemoveCoach, centerPanelRemoveCoach);
+        }
+
 
         Label^ CreateLabel(String^ text, int x, int y)
         {
             Label^ label = gcnew Label();
             label->Text = text;
             label->Location = Point(x, y);
+            label->Font = gcnew Drawing::Font("Segoe UI", 12);
             label->AutoSize = true;
             return label;
         }
@@ -239,7 +324,8 @@ namespace gymproject {
         {
             TextBox^ txt = gcnew TextBox();
             txt->Location = Point(x, y);
-            txt->Width = 200;
+            txt->Width = 300;
+            txt->Font = gcnew Drawing::Font("Segoe UI", 12);
             return txt;
         }
 
@@ -253,9 +339,10 @@ namespace gymproject {
             std::string name = msclr::interop::marshal_as<std::string>(txtRecName->Text);
             std::string id = msclr::interop::marshal_as<std::string>(txtRecID->Text);
             std::string pass = msclr::interop::marshal_as<std::string>(txtRecPass->Text);
-            double salary = std::stod(msclr::interop::marshal_as<std::string>(txtRecSalary->Text));
+            float salary = std::stof(msclr::interop::marshal_as<std::string>(txtRecSalary->Text));
 
             Receptionist* rec = new Receptionist(name, id, pass, salary);
+			system->receptionistList[id] = *rec;
             
 
             dgvRec->Rows->Add(gcnew cli::array<String^> { txtRecName->Text, txtRecID->Text });
@@ -266,13 +353,18 @@ namespace gymproject {
 
         void RemoveReceptionist(Object^ sender, EventArgs^ e)
         {
-            String^ name = txtRecRemoveName->Text;
+            String^ id = txtRecRemoveName->Text;
             for (int i = 0; i < dgvRec->Rows->Count - 1; i++) {
-                if (dgvRec->Rows[i]->Cells[0]->Value->ToString() == name) {
+                if (dgvRec->Rows[i]->Cells[1]->Value->ToString() == id) {
                     dgvRec->Rows->RemoveAt(i);
-                    MessageBox::Show("Receptionist removed successfully.");
-                    return;
+                    break;
                 }
+            }
+            auto it = system->receptionistList.find(msclr::interop::marshal_as<std::string>(id));
+            if (it != system->receptionistList.end()) {
+                system->receptionistList.erase(it);
+                MessageBox::Show("Receptionist removed successfully.");
+                return;
             }
             MessageBox::Show("Receptionist not found.");
         }
@@ -287,10 +379,10 @@ namespace gymproject {
             std::string name = msclr::interop::marshal_as<std::string>(txtCoachName->Text);
             std::string id = msclr::interop::marshal_as<std::string>(txtCoachID->Text);
             std::string pass = msclr::interop::marshal_as<std::string>(txtCoachPass->Text);
-            double salary = std::stod(msclr::interop::marshal_as<std::string>(txtCoachSalary->Text));
+            float salary = std::stof(msclr::interop::marshal_as<std::string>(txtCoachSalary->Text));
 
             Coatch* coach = new Coatch(name, id, pass, salary);
-            
+			system->coatchList[id] = *coach;
 
             dgvRec->Rows->Add(gcnew cli::array<String^, 1> { txtRecName->Text, txtRecID->Text });
 
@@ -300,13 +392,18 @@ namespace gymproject {
 
         void RemoveCoach(Object^ sender, EventArgs^ e)
         {
-            String^ name = txtCoachRemoveName->Text;
+            String^ id = txtCoachRemoveName->Text;
             for (int i = 0; i < dgvCoach->Rows->Count - 1; i++) {
-                if (dgvCoach->Rows[i]->Cells[0]->Value->ToString() == name) {
+                if (dgvCoach->Rows[i]->Cells[1]->Value->ToString() == id) {
                     dgvCoach->Rows->RemoveAt(i);
-                    MessageBox::Show("Coach removed successfully.");
-                    return;
+                    break;
                 }
+            }
+			auto it = system->coatchList.find(msclr::interop::marshal_as<std::string>(id));
+            if (it != system->coatchList.end()) {
+				system->coatchList.erase(it);
+				MessageBox::Show("Coach removed successfully.");
+				return;
             }
             MessageBox::Show("Coach not found.");
         }

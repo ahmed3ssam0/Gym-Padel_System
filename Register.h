@@ -23,18 +23,21 @@ namespace gymproject {
 	{
 		unordered_map<int, Trainee>* traineeList;
 		SystemManager* sys;
-		Gym* gym;
 		Padel* padel;
 	public:
-		Register(void)
-		{
-			InitializeComponent();
-		}
-		Register(SystemManager* sys, Gym* gym, Padel* padel)
+		Register(SystemManager* sys)
 		{
 			InitializeComponent();
 			this->sys = sys;
-			this->gym = gym;
+			traineeList = &(sys->traineeList);
+			comboBox1->Items->Add("1 Year");
+			comboBox1->Items->Add("6 Months");
+			comboBox1->Items->Add("3 Months");
+		}
+		Register(SystemManager* sys, Padel* padel)
+		{
+			InitializeComponent();
+			this->sys = sys;
 			this->padel = padel;
 			traineeList = &(sys->traineeList);
 			comboBox1->Items->Add("1 Year");
@@ -183,11 +186,12 @@ namespace gymproject {
 			// label11
 			// 
 			this->label11->AutoSize = true;
-			this->label11->Location = System::Drawing::Point(111, 482);
+			this->label11->Location = System::Drawing::Point(23, 502);
 			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(224, 13);
+			this->label11->Size = System::Drawing::Size(418, 13);
 			this->label11->TabIndex = 21;
-			this->label11->Text = L"Note: There is extra cost for VIP Subscriptions";
+			this->label11->Text = L"Note: There is extra cost for VIP Subscriptions but you will also have a random d"
+				L"iscount";
 			// 
 			// label10
 			// 
@@ -431,9 +435,18 @@ namespace gymproject {
 		else if (comboBox1->Text == "3 Months") per = 3;
 		Subscription* subscription = new Subscription(msclr::interop::marshal_as<std::string>(dateTimePicker1->Text), per);
 		string endDate = subscription->getEndDate();
-		//trainee->setSubscription(*subscription);
+		float price = trainee->subscribe(*subscription);
 		(*traineeList)[trainee->getId()] = *trainee;
 		MessageBox::Show("Your ID is: " + trainee->getId() + "\n and the Subscription end date is: " + gcnew String(endDate.c_str()));
+		float p;
+		if (per == 1) p = 3000;
+		else p = 300 * per;
+		float discount = ((p - price) / p) * 100;
+		String^ message = "Price: " + p.ToString("F2") + "\n" +
+			"Discount: " + discount.ToString("F2") + "%\n" +
+			"Total Price: " + price.ToString("F2");
+
+		MessageBox::Show(message, "Subscription Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		trainee->~Trainee();
 		subscription->~Subscription();
 		trainee = nullptr;

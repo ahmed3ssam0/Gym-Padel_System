@@ -332,12 +332,14 @@ namespace gymproject {
 					String^ workoutIntensity = gcnew String(plan.getIntensity().c_str());
 					String^ hours = gcnew String(std::to_string(plan.getHoursPerDay()).c_str());
 					String^ lostCalories = gcnew String(std::to_string(plan.getLostCalories()).c_str());
-					workoutPlanDataGridView->Rows->Add(sessionName);
-					workoutPlanDataGridView->Rows->Add(workoutName);
-					workoutPlanDataGridView->Rows->Add(workoutType);
-					workoutPlanDataGridView->Rows->Add(workoutIntensity);
-					workoutPlanDataGridView->Rows->Add(hours);
-					workoutPlanDataGridView->Rows->Add(lostCalories);
+                    workoutPlanDataGridView->Rows->Add(
+                        sessionName,
+                        workoutName,
+                        workoutType,
+                        workoutIntensity,
+                        hours,
+                        lostCalories
+                    );
 
 				}
             }

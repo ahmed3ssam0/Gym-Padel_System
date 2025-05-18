@@ -51,7 +51,7 @@ void Trainee::setIsVIP(bool isVIP) { this->isVIP = isVIP; }
 void Trainee::setSubscription(Subscription subscription) { this->subscription = subscription; }
 void Trainee::setWorkoutHistory(list<WorkoutPlan> workout_history) { this->workout_history = workout_history; }
 
-void Trainee::subscribe(Subscription sub) {
+float Trainee::subscribe(Subscription sub) {
 
     if (isVIP) {
         sub.setPrice((sub.getPrice() + 200) * sub.getPeriod());
@@ -61,7 +61,7 @@ void Trainee::subscribe(Subscription sub) {
 		sub.setPrice(sub.getPrice() * sub.getPeriod());
 	}
     subscription = sub;
-    sub.display();
+    return sub.getPrice();
 }
 
 void Trainee::renew_subscription(int period) {

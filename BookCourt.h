@@ -3,6 +3,7 @@
 #include "Trainee.h"
 #include "Court.h"
 #include "Booking.h"
+#include "System.h"
 #include<iostream>
 #include <msclr/marshal_cppstd.h> 
 #include <unordered_map>
@@ -20,15 +21,17 @@ namespace gymproject {
 	
 	public ref class ava_court : public System::Windows::Forms::UserControl
 	{
-		Padel* padel;
+		SystemManager* sys;
 		Trainee* trainee;
+		Padel* padel;
 	public:
-		ava_court(Padel* padel, Trainee* trainee)
+		ava_court(SystemManager* sys, Trainee* trainee, Padel* padel)
 		{
 			InitializeComponent();
-			this->padel = padel;
+			this->sys = sys;
 			this->trainee = trainee;
-			unordered_map<string, Court> courts = padel->getCourts();
+			this->padel = padel;
+			unordered_map<string, Court> courts = sys->CourtList;
 			for (auto& court : courts) {
 				comboBox1->Items->Add(gcnew String(court.second.getName().c_str()));
 			}
@@ -179,6 +182,8 @@ namespace gymproject {
 			// 
 			// dateTimePicker1
 			// 
+			this->dateTimePicker1->CustomFormat = L"d-MM-yyyy";
+			this->dateTimePicker1->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
 			this->dateTimePicker1->Location = System::Drawing::Point(16, 308);
 			this->dateTimePicker1->Name = L"dateTimePicker1";
 			this->dateTimePicker1->Size = System::Drawing::Size(200, 20);
@@ -206,7 +211,6 @@ namespace gymproject {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(581, 470);
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->dateTimePicker2);
 			this->Controls->Add(this->dateTimePicker1);
@@ -219,12 +223,12 @@ namespace gymproject {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Name = L"ava_court";
-			this->Text = L"ava_court";
+			this->Size = System::Drawing::Size(581, 470);
 			this->Load += gcnew System::EventHandler(this, &ava_court::ava_court_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
+				
 		}
 #pragma endregion
 
@@ -232,13 +236,14 @@ namespace gymproject {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		String^ courtName = comboBox1->SelectedItem->ToString();
 		String^ startTimeStr = dateTimePicker2->Value.ToString("HH:mm");
-		String^ dayStr = dateTimePicker1->Value.ToString("yyyy-MM-dd");
+		String^ dayStr = dateTimePicker1->Value.ToString("dd-MM-yyyy");
 		float timePeriodStr = (float)numericUpDown1->Value;
-		auto it = padel->getCourts().find(marshal_as<string>(courtName));
-		if (it != padel->getCourts().end()) {
+		auto it = sys->CourtList.find(marshal_as<string>(courtName));
+		if (it != sys->CourtList.end()) {
 			Court court = it->second;
 			Booking booking(*trainee, court, marshal_as<string>(dayStr), marshal_as<string>(startTimeStr), timePeriodStr);
 			if (padel->bookCourt(booking)) {
+				sys->BookingList[booking.getId()] = booking;
 				MessageBox::Show("Court booked successfully!");
 			}
 			else {
