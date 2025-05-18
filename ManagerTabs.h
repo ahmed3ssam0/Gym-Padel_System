@@ -45,7 +45,6 @@ namespace gymproject {
         DataGridView^ dgvCoach;
 
 		Panel^ topPanel;
-        Button^ logOut;
 		Panel^ bottomPanel;
 
         Panel^ centerPanelAddRec;
@@ -53,9 +52,11 @@ namespace gymproject {
         Panel^ centerPanelAddCoach;
         Panel^ centerPanelRemoveCoach;
 
+		//Button^ btnLogOut;
+
 		SystemManager* system;
         Manager* man;
-
+    
     public:
         ManagerForm(SystemManager* system, Manager* man)
         {
@@ -73,12 +74,20 @@ namespace gymproject {
             topPanel->BackColor = Color::LightSteelBlue;
 
             Label^ lblWelcome = gcnew Label();
+			Button^ btnLogOut = gcnew Button();
             lblWelcome->Text = "Welcome Manager " + gcnew String(man->getname().c_str());
             lblWelcome->Font = gcnew Drawing::Font("Segoe UI", 20, FontStyle::Bold);
             lblWelcome->AutoSize = true;
             lblWelcome->Location = Point(20, 15);
+            btnLogOut->Text = "Logout";
+            btnLogOut->Font = gcnew Drawing::Font("Segoe UI", 12, FontStyle::Regular);
+            btnLogOut->Size = Drawing::Size(100, 40);
+            btnLogOut->Anchor = AnchorStyles::Top | AnchorStyles::Right;
+            btnLogOut->Location = Point(topPanel->Width - btnLogOut->Width - 20, 20);
             topPanel->Controls->Add(lblWelcome);
-			topPanel->Controls->Add(logOut);
+			topPanel->Controls->Add(btnLogOut);
+            btnLogOut->Click += gcnew System::EventHandler(this, &ManagerForm::btnLogOut_Click);
+
 
             // Bottom panel to hold tab control
             bottomPanel = gcnew Panel();
@@ -106,7 +115,6 @@ namespace gymproject {
 
 
         }
-
     private:
 
         void InitAddReceptionistTab()
@@ -407,5 +415,6 @@ namespace gymproject {
             }
             MessageBox::Show("Coach not found.");
         }
+        System::Void btnLogOut_Click(System::Object^ sender, System::EventArgs^ e);
     };
 }

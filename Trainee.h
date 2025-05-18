@@ -49,5 +49,5 @@ class Trainee {
     void delete_subscription();
 
     void addWorkoutPlan(WorkoutPlan wp);
-    void removeWorkoutPlan(WorkoutPlan wp);
+    void removeWorkoutPlan(string wp);
 };

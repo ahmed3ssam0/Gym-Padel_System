@@ -12,6 +12,7 @@ class Gym
 {
 	unordered_map<string, GymClass> gymClasses;
 	unordered_map<string, Hall> halls;
+
 	public:
 	Gym();
 	~Gym();

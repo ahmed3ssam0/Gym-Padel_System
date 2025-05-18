@@ -1,0 +1,10 @@
+Starting program...
+1234567891011LOADED 
+Applied 16% discount. You saved $480!
+Applied 36% discount. You saved $1080!
+Applied 11% discount. You saved $330!
+The Subscription will end at 18-11-2026
+The Price: 2670
+Applied 15% discount. You saved $450!
+The Subscription will end at 18-11-2027
+The Price: 2550

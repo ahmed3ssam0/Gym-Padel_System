@@ -24,7 +24,8 @@ namespace gymproject {
 	public ref class Receptionist_Form : public System::Windows::Forms::Form
 	{
 		SystemManager* system;
-		Receptionist* rec;
+	private: System::Windows::Forms::Button^ button1;
+		   Receptionist* rec;
 	public:
 		Receptionist_Form(SystemManager* system, Receptionist* rec)
 		{
@@ -106,6 +107,7 @@ namespace gymproject {
 			this->vip_col = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->sub_col = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->gender_col = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -114,10 +116,9 @@ namespace gymproject {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(11, 29);
-			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label1->Location = System::Drawing::Point(15, 36);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(282, 29);
+			this->label1->Size = System::Drawing::Size(340, 36);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Welcome Receptionist ";
 			// 
@@ -129,10 +130,10 @@ namespace gymproject {
 			this->sign_up_bt->AutoSize = true;
 			this->sign_up_bt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->sign_up_bt->Location = System::Drawing::Point(369, 408);
-			this->sign_up_bt->Margin = System::Windows::Forms::Padding(2);
+			this->sign_up_bt->Location = System::Drawing::Point(492, 502);
+			this->sign_up_bt->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->sign_up_bt->Name = L"sign_up_bt";
-			this->sign_up_bt->Size = System::Drawing::Size(184, 40);
+			this->sign_up_bt->Size = System::Drawing::Size(245, 49);
 			this->sign_up_bt->TabIndex = 1;
 			this->sign_up_bt->Text = L"Register a new trainee";
 			this->sign_up_bt->UseVisualStyleBackColor = true;
@@ -143,10 +144,10 @@ namespace gymproject {
 			this->id_txt->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->id_txt->Location = System::Drawing::Point(560, 38);
-			this->id_txt->Margin = System::Windows::Forms::Padding(2);
+			this->id_txt->Location = System::Drawing::Point(747, 47);
+			this->id_txt->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->id_txt->Name = L"id_txt";
-			this->id_txt->Size = System::Drawing::Size(188, 20);
+			this->id_txt->Size = System::Drawing::Size(249, 22);
 			this->id_txt->TabIndex = 2;
 			// 
 			// label2
@@ -157,10 +158,9 @@ namespace gymproject {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(447, 36);
-			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label2->Location = System::Drawing::Point(596, 44);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(101, 20);
+			this->label2->Size = System::Drawing::Size(125, 25);
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"Search by ID";
 			// 
@@ -171,10 +171,10 @@ namespace gymproject {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->search_bt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->search_bt->Location = System::Drawing::Point(752, 38);
-			this->search_bt->Margin = System::Windows::Forms::Padding(2);
+			this->search_bt->Location = System::Drawing::Point(1003, 47);
+			this->search_bt->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->search_bt->Name = L"search_bt";
-			this->search_bt->Size = System::Drawing::Size(137, 24);
+			this->search_bt->Size = System::Drawing::Size(183, 30);
 			this->search_bt->TabIndex = 4;
 			this->search_bt->Text = L"Search";
 			this->search_bt->UseVisualStyleBackColor = true;
@@ -190,10 +190,10 @@ namespace gymproject {
 			this->view_bt->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->view_bt->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->view_bt->Location = System::Drawing::Point(369, 353);
-			this->view_bt->Margin = System::Windows::Forms::Padding(2);
+			this->view_bt->Location = System::Drawing::Point(492, 434);
+			this->view_bt->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->view_bt->Name = L"view_bt";
-			this->view_bt->Size = System::Drawing::Size(184, 40);
+			this->view_bt->Size = System::Drawing::Size(245, 49);
 			this->view_bt->TabIndex = 5;
 			this->view_bt->Text = L"View All";
 			this->view_bt->UseVisualStyleBackColor = false;
@@ -219,13 +219,13 @@ namespace gymproject {
 				this->id_col,
 					this->name_col, this->phone_col, this->dob_col, this->email_col, this->password_col, this->vip_col, this->sub_col, this->gender_col
 			});
-			this->dataGridView1->Location = System::Drawing::Point(34, 88);
-			this->dataGridView1->Margin = System::Windows::Forms::Padding(2);
+			this->dataGridView1->Location = System::Drawing::Point(45, 108);
+			this->dataGridView1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersVisible = false;
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 24;
-			this->dataGridView1->Size = System::Drawing::Size(852, 226);
+			this->dataGridView1->Size = System::Drawing::Size(1136, 278);
 			this->dataGridView1->TabIndex = 6;
 			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Receptionist_Form::dataGridView1_CellContentClick);
 			// 
@@ -292,11 +292,22 @@ namespace gymproject {
 			this->gender_col->MinimumWidth = 6;
 			this->gender_col->Name = L"gender_col";
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(438, 47);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 7;
+			this->button1->Text = L"Logout";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Receptionist_Form::button1_Click);
+			// 
 			// Receptionist_Form
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(910, 487);
+			this->ClientSize = System::Drawing::Size(1213, 599);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->view_bt);
 			this->Controls->Add(this->search_bt);
@@ -304,7 +315,7 @@ namespace gymproject {
 			this->Controls->Add(this->id_txt);
 			this->Controls->Add(this->sign_up_bt);
 			this->Controls->Add(this->label1);
-			this->Margin = System::Windows::Forms::Padding(2);
+			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"Receptionist_Form";
 			this->Text = L"Receptionist_Form";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
@@ -391,5 +402,6 @@ namespace gymproject {
 		dataGridView1->RowHeadersVisible = false;
 		dataGridView1->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
 	}
-	};
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
+};
 }

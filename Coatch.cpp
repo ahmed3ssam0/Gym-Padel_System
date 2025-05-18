@@ -58,8 +58,8 @@ Coatch::~Coatch() {
    // cout << "Destructor called"<<endl;
 }
 //add class
-void Coatch::addClass(GymClass gymClass) {
-    classAssignments.push_back(gymClass);
+void Coatch::addClass(GymClass* gymClass) {
+    classAssignments.push_back(*gymClass);
     cout << "Class added successfully.\n";
 }
 //remove class

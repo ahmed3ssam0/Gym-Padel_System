@@ -39,7 +39,7 @@ public:
 	//destructor
 	~Coatch();
 	//add
-	void addClass(GymClass gymClass);
+	void addClass(GymClass* gymClass);
 	//remove
 	bool removeClass( string className);
 	//assign workout plan

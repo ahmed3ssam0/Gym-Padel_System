@@ -70,15 +70,16 @@ void GymClass::addWorkoutPlan(WorkoutPlan wp) {
 		t.addWorkoutPlan(wp);
 	}
 }
-void GymClass::removeWorkoutPlan(WorkoutPlan wp) {
+void GymClass::removeWorkoutPlan(string wp) {
+	string wpname = wp;
 	for (auto it = ClassWorkoutPlans.begin(); it != ClassWorkoutPlans.end(); ++it) {
-		if (it->getName() == wp.getName()) {
+		if (it->getName() == wp) {
 			ClassWorkoutPlans.erase(it);
 			break;
 		}
 	}
 	for (auto t : ClassTrainees) {
-		t.removeWorkoutPlan(wp);
+		t.removeWorkoutPlan(wpname);
 	}
 }
 
@@ -94,7 +95,7 @@ void GymClass::displayWorkoutPlans() {
 	for (auto wp : ClassWorkoutPlans) {
 		cout << "Workout Plan Name: " << wp.getName() << endl;
 		cout << "Hours Per Day: " << wp.getHoursPerDay() << endl;
-		cout << "Type: " << wp.getType() << endl;
+		
 		cout << "Intensity: " << wp.getIntensity() << endl;
 		cout << "Lost Calories: " << wp.getLostCalories() << endl;
 	}

@@ -100,16 +100,16 @@ void Trainee::delete_subscription() {
 
 void Trainee::view_workout_history() {
     for(auto i : workout_history) {
-        cout << i.getName() << ", " << i.getHoursPerDay() << ", " << i.getType() << ", " << i.getIntensity() << ", " << i.getLostCalories() << ", " << endl;
+        cout << i.getName() << ", " << i.getHoursPerDay() << ", " << i.getIntensity() << ", " << i.getLostCalories() << ", " << endl;
     }
 }
 
 void Trainee::addWorkoutPlan(WorkoutPlan wp) {
     workout_history.push_back(wp);
 }
-void Trainee::removeWorkoutPlan(WorkoutPlan wp) {
+void Trainee::removeWorkoutPlan(string wp) {
     for (auto it = workout_history.begin(); it != workout_history.end(); ++it) {
-        if (it->getName() == wp.getName()) {
+        if (it->getName() == wp) {
             workout_history.erase(it);
             break;
         }

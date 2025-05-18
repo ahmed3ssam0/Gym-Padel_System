@@ -154,7 +154,6 @@ namespace gymproject {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		for (auto& workout : trainee->getWorkoutHistory()) {
 			String^ name = gcnew String(workout.getName().c_str());
-			String^ type = gcnew String(workout.getType().c_str());
 			String^ intensity = gcnew String(workout.getIntensity().c_str());
 
 			dataGridView1->Rows->Add(name, workout.getHoursPerDay(), type, intensity, workout.getLostCalories());

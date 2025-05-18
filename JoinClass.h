@@ -112,6 +112,7 @@ namespace gymproject {
 			this->splitContainer1->BackColor = System::Drawing::Color::Transparent;
 			this->splitContainer1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->splitContainer1->Location = System::Drawing::Point(0, 0);
+			this->splitContainer1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->splitContainer1->Name = L"splitContainer1";
 			this->splitContainer1->Orientation = System::Windows::Forms::Orientation::Horizontal;
 			// 
@@ -125,8 +126,9 @@ namespace gymproject {
 			this->splitContainer1->Panel2->Controls->Add(this->comboBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->label2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
-			this->splitContainer1->Size = System::Drawing::Size(1448, 888);
-			this->splitContainer1->SplitterDistance = 410;
+			this->splitContainer1->Size = System::Drawing::Size(1931, 1093);
+			this->splitContainer1->SplitterDistance = 504;
+			this->splitContainer1->SplitterWidth = 5;
 			this->splitContainer1->TabIndex = 1;
 			// 
 			// dataGridView1
@@ -136,15 +138,18 @@ namespace gymproject {
 			this->dataGridView1->AllowUserToResizeRows = false;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Classes });
-			this->dataGridView1->Location = System::Drawing::Point(237, 155);
+			this->dataGridView1->Location = System::Drawing::Point(316, 191);
+			this->dataGridView1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(949, 238);
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->Size = System::Drawing::Size(1265, 293);
 			this->dataGridView1->TabIndex = 2;
 			// 
 			// Classes
 			// 
 			this->Classes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
 			this->Classes->HeaderText = L"Classes";
+			this->Classes->MinimumWidth = 6;
 			this->Classes->Name = L"Classes";
 			this->Classes->ReadOnly = true;
 			// 
@@ -154,18 +159,20 @@ namespace gymproject {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->ForeColor = System::Drawing::Color::LightGray;
-			this->label1->Location = System::Drawing::Point(609, 37);
+			this->label1->Location = System::Drawing::Point(812, 46);
+			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(247, 33);
+			this->label1->Size = System::Drawing::Size(314, 42);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Avaliable Classes";
 			// 
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(558, 183);
+			this->comboBox1->Location = System::Drawing::Point(744, 225);
+			this->comboBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(298, 21);
+			this->comboBox1->Size = System::Drawing::Size(396, 24);
 			this->comboBox1->TabIndex = 5;
 			// 
 			// label2
@@ -173,17 +180,19 @@ namespace gymproject {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(510, 183);
+			this->label2->Location = System::Drawing::Point(680, 225);
+			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(41, 16);
+			this->label2->Size = System::Drawing::Size(52, 20);
 			this->label2->TabIndex = 4;
 			this->label2->Text = L"Class";
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(585, 309);
+			this->button1->Location = System::Drawing::Point(780, 250);
+			this->button1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(246, 40);
+			this->button1->Size = System::Drawing::Size(328, 49);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"Confirm";
 			this->button1->UseVisualStyleBackColor = true;
@@ -191,11 +200,12 @@ namespace gymproject {
 			// 
 			// JoinClass
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->Controls->Add(this->splitContainer1);
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"JoinClass";
-			this->Size = System::Drawing::Size(1448, 888);
+			this->Size = System::Drawing::Size(1931, 1093);
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);

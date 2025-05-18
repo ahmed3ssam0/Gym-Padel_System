@@ -50,7 +50,7 @@ class GymClass
 	void removeTraineeFromClass(Trainee t);
 
 	void addWorkoutPlan(WorkoutPlan wp);
-	void removeWorkoutPlan(WorkoutPlan wp);
+	void removeWorkoutPlan(string wp);
 
 	void displayClassInfo();
 	void displayWorkoutPlans();
